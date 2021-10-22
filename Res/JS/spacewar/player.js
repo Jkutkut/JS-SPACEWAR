@@ -2,7 +2,7 @@ class SpacewarPlayer {
     constructor(pos) {
         this.pos = pos;
 
-        this.v = new Point(0, 0);
+        this.v = new Point(0.6, 0);
     }
 
     get shape() {
@@ -16,5 +16,13 @@ class SpacewarPlayer {
                 [...this.pos.pos, radius, startAngle, endAngle]
             ]
         };
+    }
+
+    move(star) {
+        let a = star.getAttractionVector(this);
+        this.v = this.v.plus(a);
+
+        this.pos = this.pos.plus(this.v);
+        // console.log(this.pos, a);
     }
 }

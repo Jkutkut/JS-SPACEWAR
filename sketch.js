@@ -12,11 +12,16 @@ window.onload = () => {
     $(window).resize(windowResize);
 
     game = new Spacewar(ctx);
+
+    // setInterval(show, 500);
+    setInterval(show, 60/1000);
 };
 
 
 function show() {
-    ctx.clearRect(0, 0, gateEditorCanvas.width, gateEditorCanvas.height);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+    game.show();
 };
 
 const canvas_draw = {

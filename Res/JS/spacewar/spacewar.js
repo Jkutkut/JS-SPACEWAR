@@ -10,7 +10,7 @@ class Spacewar {
     }
 
 
-    show() {
+    show(color=true) {
         this.ctx.save(); // save previous styles & set our current styles
     
         this.ctx.fillStyle = 'yellow';
@@ -22,6 +22,7 @@ class Spacewar {
         this.ctx.fillStyle = 'white';
 
         for (let i = 0; i < this.players.length; i++) {
+            this.players[i].move(this.star);
             canvas_draw.element(this.players[i], true);
         }
 

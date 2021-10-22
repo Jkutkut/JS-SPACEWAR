@@ -17,7 +17,8 @@ class Star {
     }
 
     getAttractionVector(ship) {
-        let s = this.pos.minus(ship.pos);
-        return s.times(3);
+        let G = 0.01;
+        let vec = this.pos.minus(ship.pos);
+        return vec.times(G / vec.mag());
     }
 }
