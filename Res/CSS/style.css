@@ -9,4 +9,5 @@ body {
 
 canvas {
     background: var(--bg);
+    border-radius: 50%;
 }
