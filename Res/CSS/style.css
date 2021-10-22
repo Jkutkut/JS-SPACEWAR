@@ -1,0 +1,12 @@
+:root {
+    --bg: rgb(37, 37, 37);
+    --bg-dark: rgb(30, 30, 30);
+}
+
+body {
+    background: var(--bg-dark);
+}
+
+canvas {
+    background: var(--bg);
+}
