@@ -1,6 +1,8 @@
-class Star {
+class SpacewarPlayer {
     constructor(pos) {
         this.pos = pos;
+
+        this.v = new Point(0, 0);
     }
 
     get shape() {
@@ -14,10 +16,5 @@ class Star {
                 [...this.pos.pos, radius, startAngle, endAngle]
             ]
         };
-    }
-
-    getAttractionVector(ship) {
-        let s = this.pos.minus(ship.pos);
-        return s.times(3);
     }
 }
