@@ -6,21 +6,17 @@ var offset = 20;
 window.onload = () => {
     mainCanvas = $("mainCanvas");
     ctx = document.getElementById("mainCanvas").getContext('2d');
-    ctx.fillStyle = "white";
 
     windowResize();
     $(window).resize(windowResize);
 
     game = new Spacewar(ctx);
 
-    // setInterval(show, 500);
     setInterval(show, 60/1000);
 };
 
 
 function show() {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
     game.show();
 };
 
@@ -75,4 +71,6 @@ function windowResize() {
 
     mainCanvas.css("width", window.innerWidth - offset);
     mainCanvas.css("height", window.innerHeight - offset);
+
+    game = new Spacewar(ctx);
 }
