@@ -1,6 +1,11 @@
 class SpacewarStar {
-    constructor(pos) {
+
+    static G = 5;
+    
+    constructor(pos, mass=1) {
         this.pos = pos;
+
+        this.mass = mass;
     }
 
     get shape() {
@@ -16,9 +21,24 @@ class SpacewarStar {
         };
     }
 
-    getAttractionVector(ship) {
-        let G = 0.01;
-        let vec = this.pos.minus(ship.pos);
-        return vec.times(G / vec.mag());
+    /**
+     * Attracts the ship to the given object
+     * @param {SpacewarShip} ship - Ship to attract.
+     */
+    attract(ship) {
+        let force = this.pos.minus(ship.pos);
+
+        let dSq = force.mag();
+        dSq *= dSq; // Squared
+
+        let strength = SpacewarStar.G * this.mass / dSq;
+
+        console.log(SpacewarStar.G, this.mass, dSq, strength, force);
+        
+        force.setMagnitude(strength);
+
+        console.log(SpacewarStar.G, this.mass, dSq, strength, force);
+
+        ship.applyForce(force);
     }
 }
