@@ -16,7 +16,9 @@ class SpacewarShip {
                 new Point(S * 0.67, 0)
             ]
         ],
-        arcs: []
+        arcs: [
+            [0,0,3,0,Math.PI * 2]
+        ]
     };
 
     constructor(pos, v) {
@@ -24,6 +26,8 @@ class SpacewarShip {
 
         this.v = v;
         this.a = new Point(0, 0);
+
+        this.angle = 0;
     }
 
     get pos() {
@@ -58,10 +62,14 @@ class SpacewarShip {
         // Update lines
         for (let i = 0; i < SpacewarShip.DEFAULT_SHAPE.lines.length; i++) {
             this._shapeOBJ.lines.push([]);
+
             for (let j = 0; j < 2; j++) {
-                this._shapeOBJ.lines[i].push(SpacewarShip.DEFAULT_SHAPE.lines[i][j].plus(this.pos));
+                this._shapeOBJ.lines[i][j] = SpacewarShip.DEFAULT_SHAPE.lines[i][j].clone(),
+                this._shapeOBJ.lines[i][j].rotateBy(this.angle);
+                this._shapeOBJ.lines[i][j].advanceWithDirection(this.pos);
             }
         }
+
         // Update arcs
         for (let i = 0; i < SpacewarShip.DEFAULT_SHAPE.arcs.length; i++) {
             this._shapeOBJ.arcs.push([...SpacewarShip.DEFAULT_SHAPE.arcs[i]]);
