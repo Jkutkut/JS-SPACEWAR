@@ -1,10 +1,22 @@
-class SpacewarShip {
+var S = 10;
 
+class SpacewarShip {
     static DEFAULT_SHAPE = {
-        lines: [],
-        arcs: [
-            [0, 0, 5, 0, Math.PI * 2]
-        ]
+        lines: [
+            [
+                new Point(-S * 0.33, -S * 0.5),
+                new Point(-S * 0.33, S * 0.5)
+            ],
+            [
+                new Point(-S * 0.33, -S * 0.5),
+                new Point(S * 0.67, 0)
+            ],
+            [
+                new Point(-S * 0.33, S * 0.5),
+                new Point(S * 0.67, 0)
+            ]
+        ],
+        arcs: []
     };
 
     constructor(pos, v) {
