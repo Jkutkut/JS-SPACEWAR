@@ -1,6 +1,6 @@
 class SpacewarStar {
 
-    static G = 10;
+    static G = 5;
     
     constructor(pos, mass=1) {
         this.pos = pos;

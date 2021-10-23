@@ -8,6 +8,7 @@ class Spacewar {
 
     constructor(ctx) {
         this.ctx = ctx;
+        this.ctx.lineWidth = 3;
 
         let mass = 10;
         this.star = new SpacewarStar(
@@ -18,19 +19,7 @@ class Spacewar {
         this.ships = [
             new SpacewarShip(
                 new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
-                new Point(0.3, 0)
-            ),
-            new SpacewarShip(
-                new Point((ctx.canvas.width >> 1) - (ctx.canvas.height >> 2), ctx.canvas.height >> 1),
-                new Point(0, -0.3)
-            ),
-            new SpacewarShip(
-                new Point(ctx.canvas.width >> 1, 3 * (ctx.canvas.height >> 2)),
-                new Point(-0.3, 0)
-            ),
-            new SpacewarShip(
-                new Point((ctx.canvas.width >> 1) + (ctx.canvas.height >> 2), ctx.canvas.height >> 1),
-                new Point(0, 0.3)
+                new Point(0.4, 0)
             )
         ];
         this.show();
@@ -49,7 +38,7 @@ class Spacewar {
         // Clear ships
         this.ctx.fillStyle = Spacewar.COLOR.BG;
 
-        let radius = 6;
+        let radius = S + 2;
         let startAngle = 0;
         let endAngle = Math.PI * 2;
         for (let i = 0; i < this.ships.length; i++) {
@@ -68,6 +57,7 @@ class Spacewar {
 
         // Show ships in their new position
         this.ctx.fillStyle = Spacewar.COLOR.SHIP;
+        this.ctx.strokeStyle = Spacewar.COLOR.SHIP;
 
         for (let i = 0; i < this.ships.length; i++) {
             this.star.attract(this.ships[i]);
