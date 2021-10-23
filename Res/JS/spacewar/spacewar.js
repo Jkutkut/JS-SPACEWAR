@@ -1,4 +1,11 @@
 class Spacewar {
+
+    static COLOR = {
+        BG: 'rgba(37, 37, 37, 1)',
+        SHIP: 'rgb(255, 255, 255)',
+        STAR: 'yellow'
+    };
+
     constructor(ctx) {
         this.ctx = ctx;
 
