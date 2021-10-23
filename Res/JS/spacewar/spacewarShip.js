@@ -1,4 +1,4 @@
-class SpacewarPlayer {
+class SpacewarShip {
     constructor(pos) {
         this.pos = pos;
 
