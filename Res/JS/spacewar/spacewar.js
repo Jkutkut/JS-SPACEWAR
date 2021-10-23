@@ -2,9 +2,29 @@ class Spacewar {
     constructor(ctx) {
         this.ctx = ctx;
 
-        this.star = new SpacewarStar(new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 1));
-        this.players = [
-            new SpacewarShip(new Point(100, 100))
+        let mass = 10;
+        this.star = new SpacewarStar(
+            new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 1),
+            mass
+        );
+
+        this.ships = [
+            new SpacewarShip(
+                new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
+                new Point(0.3, 0)
+            ),
+            new SpacewarShip(
+                new Point((ctx.canvas.width >> 1) - (ctx.canvas.height >> 2), ctx.canvas.height >> 1),
+                new Point(0, -0.3)
+            ),
+            new SpacewarShip(
+                new Point(ctx.canvas.width >> 1, 3 * (ctx.canvas.height >> 2)),
+                new Point(-0.3, 0)
+            ),
+            new SpacewarShip(
+                new Point((ctx.canvas.width >> 1) + (ctx.canvas.height >> 2), ctx.canvas.height >> 1),
+                new Point(0, 0.3)
+            )
         ];
         this.show();
     }
