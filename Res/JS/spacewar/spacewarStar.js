@@ -1,6 +1,6 @@
 class SpacewarStar {
 
-    static G = 5;
+    static G = 10;
     
     constructor(pos, mass=1) {
         this.pos = pos;
@@ -33,11 +33,7 @@ class SpacewarStar {
 
         let strength = SpacewarStar.G * this.mass / dSq;
 
-        console.log(SpacewarStar.G, this.mass, dSq, strength, force);
-        
         force.setMagnitude(strength);
-
-        console.log(SpacewarStar.G, this.mass, dSq, strength, force);
 
         ship.applyForce(force);
     }
