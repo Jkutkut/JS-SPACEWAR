@@ -37,20 +37,42 @@ class Spacewar {
     }
 
 
-    show(color=true) {
+    show() {
         this.ctx.save(); // save previous styles & set our current styles
     
-        this.ctx.fillStyle = 'yellow';
+        this.ctx.fillStyle = Spacewar.COLOR.STAR;
         this.ctx.lineWidth = 3;
 
         // Show star
         canvas_draw.element(this.star, true);
 
-        this.ctx.fillStyle = 'white';
+        // Clear ships
+        this.ctx.fillStyle = Spacewar.COLOR.BG;
 
-        for (let i = 0; i < this.players.length; i++) {
-            this.players[i].move(this.star);
-            canvas_draw.element(this.players[i], true);
+        let radius = 6;
+        let startAngle = 0;
+        let endAngle = Math.PI * 2;
+        for (let i = 0; i < this.ships.length; i++) {
+            canvas_draw.element(
+                {
+                    shape: {
+                        lines: [],
+                        arcs: [
+                            [...this.ships[i].pos.pos, radius, startAngle, endAngle]
+                        ]
+                    }
+                },
+                true
+            );
+        }
+
+        // Show ships in their new position
+        this.ctx.fillStyle = Spacewar.COLOR.SHIP;
+
+        for (let i = 0; i < this.ships.length; i++) {
+            this.star.attract(this.ships[i]);
+            this.ships[i].update();
+            canvas_draw.element(this.ships[i], true);
         }
 
         this.ctx.restore();
