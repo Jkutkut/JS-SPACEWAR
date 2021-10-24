@@ -1,5 +1,4 @@
 class Spacewar {
-
     static COLOR = {
         BG: 'rgba(37, 37, 37, 1)',
         SHIP: 'rgb(255, 255, 255)',
@@ -22,9 +21,25 @@ class Spacewar {
                 new Point(0.4, 0)
             )
         ];
-        this.show();
+
+        this.players = [
+            new SpacewarPlayer(0, this.ships[0])
+        ];
+
+        this.update();
     }
 
+    update() {
+        let i;
+        for (i = 0; i < this.ships.length; i++) {
+            this.star.attract(this.ships[i]);
+            this.ships[i].update();
+        }
+
+        for (i = 0; i < this.players.length; i++) {
+            this.players[i].update();
+        }
+    }
 
     show() {
         this.ctx.save(); // save previous styles & set our current styles
@@ -60,21 +75,23 @@ class Spacewar {
         this.ctx.strokeStyle = Spacewar.COLOR.SHIP;
 
         for (let i = 0; i < this.ships.length; i++) {
-            this.star.attract(this.ships[i]);
-            this.ships[i].update();
             canvas_draw.element(this.ships[i], true);
         }
 
         this.ctx.restore();
     }
 
-    keyHandle(e) {
-        let deltaA = 0.314159265 / 2;
-        if (e.keyCode == 97) {
-            this.ships[0].angle -= deltaA;
+    keyDown(e) {
+        let keyCode = e.keyCode;
+        for(let i = 0; i < this.players.length; i++) {
+            this.players[i].keyDown(keyCode);
         }
-        else if (e.keyCode == 100) {
-            this.ships[0].angle += deltaA;
+    }
+    
+    keyUp(e) {
+        let keyCode = e.keyCode;
+        for(let i = 0; i < this.players.length; i++) {
+            this.players[i].keyUp(keyCode);
         }
     }
 }
