@@ -15,18 +15,21 @@ window.onload = () => {
     game = new Spacewar(ctx);
 
     // canvas refresh logic
-    setInterval(show, 60/1000);
+    setInterval(update, 60/1000);
+    setInterval(show, 30/1000);
 
     // control logic
-    // setInterval(show, 60/1000);
-
-    $("body").keypress((e) => {game.keyHandle(e)});
+    $("body").keydown((e) => {game.keyUp(e)});
+    $("body").keyup((e) => {game.keyUp(e)});
 };
 
 
 function show() {
     game.show();
 };
+function update() {
+    game.update();
+}
 
 const canvas_draw = {
     line: (startPoint, endPoint) => {
