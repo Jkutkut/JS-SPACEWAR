@@ -10,20 +10,7 @@ class SpacewarShip {
                 new Point(-S * 0.33, S * 0.5)
             ]
         ],
-        lines: [
-            // [
-            //     new Point(-S * 0.33, S * 0.5),
-            //     new Point(-S * 0.33, -S * 0.5)
-            // ],
-            // [
-            //     new Point(-S * 0.33, -S * 0.5),
-            //     new Point(S * 0.8, 0)
-            // ],
-            // [
-            //     new Point(S * 0.8, 0),
-            //     new Point(-S * 0.33, S * 0.5)
-            // ]
-        ],
+        lines: [],
         arcs: []
     };
 
@@ -70,11 +57,11 @@ class SpacewarShip {
         
         // Update shapes
         for (let i = 0, j, l; i < SpacewarShip.DEFAULT_SHAPE.shapes.length; i++) {
-            this._shapeOBJ.lines.push([]);
+            this._shapeOBJ.shapes.push([]);
 
             l = SpacewarShip.DEFAULT_SHAPE.shapes[i].length;
             for (j = 0; j < l; j++) {
-                this._shapeOBJ.shapes[i][j] = SpacewarShip.DEFAULT_SHAPE.shapes[i][j].clone(),
+                this._shapeOBJ.shapes[i].push(SpacewarShip.DEFAULT_SHAPE.shapes[i][j].clone()),
                 this._shapeOBJ.shapes[i][j].rotateBy(this.angle);
                 this._shapeOBJ.shapes[i][j].advanceWithDirection(this.pos);
             }
