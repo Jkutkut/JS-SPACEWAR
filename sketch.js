@@ -7,12 +7,20 @@ window.onload = () => {
     mainCanvas = $("mainCanvas");
     ctx = document.getElementById("mainCanvas").getContext('2d');
 
+    // Resize window logic
     windowResize();
     $(window).resize(windowResize);
 
+    // Create game
     game = new Spacewar(ctx);
 
+    // canvas refresh logic
     setInterval(show, 60/1000);
+
+    // control logic
+    // setInterval(show, 60/1000);
+
+    $("body").keypress((e) => {game.keyHandle(e)});
 };
 
 

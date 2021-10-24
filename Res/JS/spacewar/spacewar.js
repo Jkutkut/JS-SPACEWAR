@@ -67,4 +67,14 @@ class Spacewar {
 
         this.ctx.restore();
     }
+
+    keyHandle(e) {
+        let deltaA = 0.314159265 / 2;
+        if (e.keyCode == 97) {
+            this.ships[0].angle -= deltaA;
+        }
+        else if (e.keyCode == 100) {
+            this.ships[0].angle += deltaA;
+        }
+    }
 }
