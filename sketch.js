@@ -19,7 +19,7 @@ window.onload = () => {
     setInterval(show, 30/1000);
 
     // control logic
-    $("body").keydown((e) => {game.keyUp(e)});
+    $("body").keydown((e) => {game.keyDown(e)});
     $("body").keyup((e) => {game.keyUp(e)});
 };
 
