@@ -66,6 +66,7 @@ class SpacewarPlayer {
                 break;
             case this.controls.forward:
                 this.state.forward = false;
+                this.ship.endPush();
                 break;
             case this.controls.shoot:
                 this.state.shoot = false;

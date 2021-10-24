@@ -2,6 +2,10 @@ class Spacewar {
     static COLOR = {
         BG: 'rgba(37, 37, 37, 1)',
         SHIP: 'rgb(255, 255, 255)',
+        EXHAUST: [
+            'rgb(255, 100, 100)',
+            'rgba(255, 255, 255, 0.5)'
+        ],
         STAR: 'yellow'
     };
 
@@ -30,10 +34,17 @@ class Spacewar {
     }
 
     update() {
-        let i;
+        let i, d, ship;
         for (i = 0; i < this.ships.length; i++) {
-            this.star.attract(this.ships[i]);
-            this.ships[i].update();
+            ship = this.ships[i];
+            this.star.attract(ship);
+            ship.update();
+
+            d = this.star.pos.dist(ship.pos);
+
+            if (d < (S >> 1)) { // if star near
+                this.ships.splice(i); // destroy ship
+            }
         }
 
         for (i = 0; i < this.players.length; i++) {
@@ -55,7 +66,7 @@ class Spacewar {
         // Clear ships
         this.ctx.fillStyle = Spacewar.COLOR.BG;
 
-        let radius = S + 2;
+        let radius = S * 2;
         let startAngle = 0;
         let endAngle = Math.PI * 2;
         for (i = 0; i < this.ships.length; i++) {
@@ -75,10 +86,21 @@ class Spacewar {
 
         // Show ships in their new position
         this.ctx.fillStyle = Spacewar.COLOR.SHIP;
-        this.ctx.strokeStyle = Spacewar.COLOR.SHIP;
 
         for (i = 0; i < this.ships.length; i++) {
+            // Show ship
             canvas_draw.element(this.ships[i], true);
+            
+            // Show exhaust if on
+            if (this.ships[i].exhaustOn) {                
+                for (let j = 0; j < this.ships[i].exhaust.length; j++) {
+                    this.ctx.fillStyle = Spacewar.COLOR.EXHAUST[j];
+                    
+                    for (let k = 0; k < this.ships[i].exhaust[j].shapes.length; k++) {
+                        canvas_draw.shape(this.ships[i].exhaust[j].shapes[k]);
+                    }
+                }
+            }
         }
 
         this.ctx.restore();

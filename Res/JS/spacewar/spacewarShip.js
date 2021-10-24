@@ -16,15 +16,29 @@ class SpacewarShip {
     static EXHAUST = [
         {
             shapes: [
-                new Point(-S * 0.33, S * 0.3),
-                new Point(-S * 0.5, S * 0.35),
-                new Point(-S * 0.5, -S * 0.35),
-                new Point(-S * 0.33, -S * 0.3)
+                [
+                    new Point(-S * 0.33, S * 0.3),
+                    new Point(-S * 1, S * 0.1),
+                    new Point(-S * 1.2, 0),
+                    new Point(-S * 1, -S * 0.1),
+                    new Point(-S * 0.33, -S * 0.3)
+                ]
+            ],
+            lines: [],
+            arcs: []
+        },
+        {
+            shapes: [
+                [
+                    new Point(-S * 0.33, S * 0.2),
+                    new Point(-S * 0.9, 0),
+                    new Point(-S * 0.33, -S * 0.2)
+                ]
             ],
             lines: [],
             arcs: []
         }
-    ]
+    ];
 
     constructor(pos, v) {
         this._pos = pos;
@@ -34,7 +48,10 @@ class SpacewarShip {
 
         this.angle = 0;
 
+        this._shapeOBJ = null;
+
         this.exhaustOn = false;
+        this._exhaustOBJ = [];
     }
 
     get pos() {
@@ -45,6 +62,10 @@ class SpacewarShip {
         return this._shapeOBJ;
     }
 
+    get exhaust() {
+        return this._exhaustOBJ;
+    }
+
     pushForward() {
         this.exhaustOn = true;
 
@@ -52,6 +73,11 @@ class SpacewarShip {
         let f = new Point(0, mF);
         f.rotate(this.angle);
         this.applyForce(f);
+    }
+
+    endPush() {
+        this.exhaustOn = false;
+        this._exhaustOBJ = [];
     }
 
     /**
@@ -105,6 +131,24 @@ class SpacewarShip {
             this._shapeOBJ.arcs.push([...SpacewarShip.DEFAULT_SHAPE.arcs[i]]);
             for (k = 0; k < 2; k++) {
                 this._shapeOBJ.arcs[i][k] = this._shapeOBJ.arcs[i][k] + this.pos.pos[k];
+            }
+        }
+
+        if (this.exhaustOn) {
+            this._exhaustOBJ = [];
+
+            for (let i = 0; i < SpacewarShip.EXHAUST.length; i++) {
+                this._exhaustOBJ.push({shapes: [], lines: [], arcs: []});
+
+                for (let j = 0; j < SpacewarShip.EXHAUST[i].shapes.length; j++) {
+                    this._exhaustOBJ[i].shapes.push([]);
+
+                    for (let k = 0; k < SpacewarShip.EXHAUST[i].shapes[j].length; k++) {
+                        this._exhaustOBJ[i].shapes[j].push(SpacewarShip.EXHAUST[i].shapes[j][k].clone());
+                        this._exhaustOBJ[i].shapes[j][k].rotateBy(this.angle);
+                        this._exhaustOBJ[i].shapes[j][k].advanceWithDirection(this.pos);
+                    }
+                }
             }
         }
     }
