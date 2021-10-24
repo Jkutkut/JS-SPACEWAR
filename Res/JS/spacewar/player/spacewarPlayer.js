@@ -23,7 +23,6 @@ class SpacewarPlayer {
     }
 
     update() {
-        // console.log(this.state)
         let deltaA = 0.02;
         if (this.state.right) {
             this.ship.angle += deltaA;
@@ -31,10 +30,10 @@ class SpacewarPlayer {
         if (this.state.left) {
             this.ship.angle -= deltaA;
         }
-        if (this.forward) {
-            // TODO propulsor
+        if (this.state.forward) {
+            this.ship.pushForward();
         }
-        if (this.shoot) {
+        if (this.state.shoot) {
             // TODO shoot
             this.shoot = false;
         }

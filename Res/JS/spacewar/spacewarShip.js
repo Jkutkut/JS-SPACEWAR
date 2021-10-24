@@ -6,13 +6,25 @@ class SpacewarShip {
             [
                 new Point(-S * 0.33, S * 0.5),
                 new Point(-S * 0.33, -S * 0.5),
-                new Point(S * 0.8, 0),
-                new Point(-S * 0.33, S * 0.5)
+                new Point(S * 0.8, 0)
             ]
         ],
         lines: [],
         arcs: []
     };
+
+    static EXHAUST = [
+        {
+            shapes: [
+                new Point(-S * 0.33, S * 0.3),
+                new Point(-S * 0.5, S * 0.35),
+                new Point(-S * 0.5, -S * 0.35),
+                new Point(-S * 0.33, -S * 0.3)
+            ],
+            lines: [],
+            arcs: []
+        }
+    ]
 
     constructor(pos, v) {
         this._pos = pos;
@@ -21,6 +33,8 @@ class SpacewarShip {
         this.a = new Point(0, 0);
 
         this.angle = 0;
+
+        this.exhaustOn = false;
     }
 
     get pos() {
@@ -31,6 +45,14 @@ class SpacewarShip {
         return this._shapeOBJ;
     }
 
+    pushForward() {
+        this.exhaustOn = true;
+
+        let mF = 0.002;
+        let f = new Point(0, mF);
+        f.rotate(this.angle);
+        this.applyForce(f);
+    }
 
     /**
      * Applies the given force to the ship.
