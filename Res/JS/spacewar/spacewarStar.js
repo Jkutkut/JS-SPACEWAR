@@ -14,6 +14,7 @@ class SpacewarStar {
         let endAngle = Math.PI * 2;
 
         return {
+            shapes: [],
             lines: [],
             arcs: [
                 [...this.pos.pos, radius, startAngle, endAngle]

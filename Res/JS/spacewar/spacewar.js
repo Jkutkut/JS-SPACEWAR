@@ -42,6 +42,8 @@ class Spacewar {
     }
 
     show() {
+        let i;
+
         this.ctx.save(); // save previous styles & set our current styles
     
         this.ctx.fillStyle = Spacewar.COLOR.STAR;
@@ -56,10 +58,11 @@ class Spacewar {
         let radius = S + 2;
         let startAngle = 0;
         let endAngle = Math.PI * 2;
-        for (let i = 0; i < this.ships.length; i++) {
+        for (i = 0; i < this.ships.length; i++) {
             canvas_draw.element(
                 {
                     shape: {
+                        shapes: [],
                         lines: [],
                         arcs: [
                             [...this.ships[i].pos.pos, radius, startAngle, endAngle]
@@ -74,7 +77,7 @@ class Spacewar {
         this.ctx.fillStyle = Spacewar.COLOR.SHIP;
         this.ctx.strokeStyle = Spacewar.COLOR.SHIP;
 
-        for (let i = 0; i < this.ships.length; i++) {
+        for (i = 0; i < this.ships.length; i++) {
             canvas_draw.element(this.ships[i], true);
         }
 
@@ -87,7 +90,7 @@ class Spacewar {
             this.players[i].keyDown(keyCode);
         }
     }
-    
+
     keyUp(e) {
         let keyCode = e.keyCode;
         for(let i = 0; i < this.players.length; i++) {

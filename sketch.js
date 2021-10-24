@@ -49,14 +49,33 @@ const canvas_draw = {
             ctx.stroke();
         }
     },
+    shape: (arr, fill=true) => {
+        ctx.beginPath();
+        ctx.moveTo(...arr[0].pos);
+        for (let i = 1; i < arr.length; i++) {
+            ctx.lineTo(...arr[i].pos);
+        }
+        ctx.closePath();
+        if (fill) {
+            ctx.fill();
+        }
+        else {
+            ctx.stroke();
+        }
+    },
     element: (element, fill=false) => {
         let shape = element.shape;
+        let i;
 
-        for (let i = 0; i < shape.lines.length; i++) {
+        for (i = 0; i < shape.shapes.length; i++) {
+            canvas_draw.shape(shape.shapes[i], fill);
+        }
+
+        for (i = 0; i < shape.lines.length; i++) {
             canvas_draw.line(...shape.lines[i]);
         }
         
-        for (let i = 0; i < shape.arcs.length; i++) {
+        for (i = 0; i < shape.arcs.length; i++) {
             canvas_draw.arc(...shape.arcs[i], fill);
         }
     },
