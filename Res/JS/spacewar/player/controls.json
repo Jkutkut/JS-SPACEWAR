@@ -1,0 +1,22 @@
+{
+    "default": {
+        "right": null,
+        "left": null,
+        "forward": null,
+        "shoot": null
+    },
+    "controls": [
+        {
+            "right": 68,
+            "left": 65,
+            "forward": 87,
+            "shoot": 32
+        },
+        {
+            "right": 39,
+            "left": 37,
+            "forward": 38,
+            "shoot": 40
+        }
+    ]
+}
