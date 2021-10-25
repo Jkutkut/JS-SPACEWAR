@@ -18,11 +18,24 @@ class Bullet {
         arcs: []
     };
 
-    constructor(parentShip, pos, v, angle) {
-        this.pos = pos;
-        this.angle = angle;
-        this.v = new Point(v, 0);
-        this.v.rotateBy(angle);
+    static V = 0.5;
+
+    constructor(parentShip) {
+        this.ship = parentShip;
+
+        this.angle = this.ship.angle;
+
+        this.pos = this.ship.pos.clone();
+
+        let tip = new Point(S, 0);
+        tip.rotateBy(this.angle);
+
+        this.pos.advanceWithDirection(tip);
+
+        this.v = new Point(Bullet.V, 0);
+        this.v.rotateBy(this.angle);
+
+        this.a = new Point(0, 0);
 
         this.update();
     }
@@ -31,7 +44,10 @@ class Bullet {
         return this._shapeOBJ;
     }
 
+    applyForce(force) {}
+
     update() {
+        this.v.advanceWithDirection(this.a);
         this.pos.advanceWithDirection(this.v);
 
         // Update shapeOBJ
@@ -46,5 +62,12 @@ class Bullet {
                 this._shapeOBJ.shapes[i][j].advanceWithDirection(this.pos);
             }
         }
+    }
+}
+
+class FastBullet extends Bullet {
+    
+    applyForce(force) {
+        this.a.advanceWithDirection(force);
     }
 }
