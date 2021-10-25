@@ -49,6 +49,7 @@ class Bullet {
     update() {
         this.v.advanceWithDirection(this.a);
         this.pos.advanceWithDirection(this.v);
+        this.a.moveTo(0, 0);
 
         // Update shapeOBJ
         this._shapeOBJ = {shapes: [], lines: [], arcs: []};
