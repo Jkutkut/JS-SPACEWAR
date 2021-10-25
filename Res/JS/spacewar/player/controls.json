@@ -17,6 +17,12 @@
             "left": 37,
             "forward": 38,
             "shoot": 40
+        },
+        {
+            "right": 75,
+            "left": 72,
+            "forward": 85,
+            "shoot": 74
         }
     ]
 }
