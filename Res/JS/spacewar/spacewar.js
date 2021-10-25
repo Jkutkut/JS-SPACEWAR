@@ -22,13 +22,7 @@ class Spacewar {
 
         this.ships = [];
         this.players = [];
-        this.bullets = [
-            new Bullet(
-                new Point(200, 200),
-                1,
-                0
-            )
-        ];
+        this.bullets = [];
 
         this.addPlayer();
         this.addPlayer();

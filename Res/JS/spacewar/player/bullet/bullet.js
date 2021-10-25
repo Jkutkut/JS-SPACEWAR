@@ -18,7 +18,7 @@ class Bullet {
         arcs: []
     };
 
-    constructor(pos, v, angle) {
+    constructor(parent, pos, v, angle) {
         this.pos = pos;
         this.angle = angle;
         this.v = new Point(v, 0);
