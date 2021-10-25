@@ -47,7 +47,8 @@ class Spacewar {
             d = this.star.pos.dist(ship.pos);
 
             if (d < (S >> 1)) { // if star near
-                this.ships.splice(i); // destroy ship
+                this.ships.splice(i, 1); // destroy ship
+                this.players.splice(i, 1); // destroy player
             }
         }
 
@@ -131,8 +132,10 @@ class Spacewar {
 
     keyDown(e) {
         let keyCode = e.keyCode;
+        let bullet;
         for(let i = 0; i < this.players.length; i++) {
-            this.players[i].keyDown(keyCode);
+            bullet = this.players[i].keyDown(keyCode);
+            // TODO add bullet
         }
     }
 
