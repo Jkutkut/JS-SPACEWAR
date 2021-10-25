@@ -19,16 +19,12 @@ class Spacewar {
             mass
         );
 
-        this.ships = [
-            new SpacewarShip(
-                new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
-                new Point(0.4, 0)
-            )
-        ];
+        this.ships = [];
+        this.players = [];
 
-        this.players = [
-            new SpacewarPlayer(0, this.ships[0])
-        ];
+        this.addPlayer();
+        this.addPlayer();
+        this.addPlayer();
 
         this.update();
     }
@@ -118,5 +114,22 @@ class Spacewar {
         for(let i = 0; i < this.players.length; i++) {
             this.players[i].keyUp(keyCode);
         }
+    }
+
+    // Player creation/deletion
+    addPlayer() {
+        let index = this.ships.length;
+
+        this.ships.push(
+            new SpacewarShip(
+                new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
+                new Point(0.4, 0)
+            )
+        );
+
+        
+        this.players.push(
+            new SpacewarPlayer(index, this.ships[index])
+        );
     }
 }
