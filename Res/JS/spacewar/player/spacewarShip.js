@@ -66,6 +66,10 @@ class SpacewarShip {
         return this._exhaustOBJ;
     }
 
+    get mass() {
+        return 1;
+    }
+
     pushForward() {
         this.exhaustOn = true;
 
