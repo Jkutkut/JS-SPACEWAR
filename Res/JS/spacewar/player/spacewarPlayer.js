@@ -8,11 +8,14 @@ $.getJSON(
 class SpacewarPlayer {
 
     static CONTROLS;
+    static COOL_DOWN = 100;
 
     constructor(index, ship) {
         this.ship = ship;
 
         this.controls = SpacewarPlayer.CONTROLS[index];
+
+        this.bulletCreation = undefined;
 
         this.state = {
             right: false,
@@ -20,9 +23,15 @@ class SpacewarPlayer {
             forward: false,
             shoot: false
         }
+
+        this.coolDown = 0; // Time remaining until I can shoot again
     }
 
     update() {
+        if (this.coolDown > 0) {
+            this.coolDown--;
+        }
+
         let deltaA = 0.02;
         if (this.state.right) {
             this.ship.angle += deltaA;
@@ -34,8 +43,10 @@ class SpacewarPlayer {
             this.ship.pushForward();
         }
         if (this.state.shoot) {
-            // TODO shoot
-            this.shoot = false;
+            if (this.coolDown == 0) {
+                this.bulletCreation = new Bullet(this.ship);
+                this.coolDown = SpacewarPlayer.COOL_DOWN;
+            }
         }
     }
 
