@@ -17,7 +17,8 @@ class Spacewar {
         let mass = 10;
         this.star = new SpacewarStar(
             new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 1),
-            mass
+            0
+            // mass
         );
 
         this.ships = [];
@@ -117,6 +118,7 @@ class Spacewar {
             
             // Show exhaust if on
             if (this.ships[i].exhaustOn) {                
+                this.ctx.save();
                 for (let j = 0; j < this.ships[i].exhaust.length; j++) {
                     this.ctx.fillStyle = Spacewar.COLOR.EXHAUST[j];
                     
@@ -124,6 +126,7 @@ class Spacewar {
                         canvas_draw.shape(this.ships[i].exhaust[j].shapes[k]);
                     }
                 }
+                this.ctx.restore();
             }
         }
 
@@ -153,7 +156,8 @@ class Spacewar {
         this.ships.push(
             new SpacewarShip(
                 new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
-                new Point(0.4, 0)
+                new Point(0, 0)
+                // new Point(0.4, 0)
             )
         );
 
