@@ -6,7 +6,8 @@ class Spacewar {
             'rgb(255, 100, 100)',
             'rgba(255, 255, 255, 0.5)'
         ],
-        STAR: 'yellow'
+        STAR: 'yellow',
+        BULLET: 'rgb(255, 255, 255)'
     };
 
     constructor(ctx) {
@@ -21,6 +22,13 @@ class Spacewar {
 
         this.ships = [];
         this.players = [];
+        this.bullets = [
+            new Bullet(
+                new Point(200, 200),
+                1,
+                0
+            )
+        ];
 
         this.addPlayer();
         this.addPlayer();
@@ -59,18 +67,17 @@ class Spacewar {
         // Show star
         canvas_draw.element(this.star, true);
 
-        // Clear ships
+
+        // Clear ships and bullets
         this.ctx.fillStyle = Spacewar.COLOR.BG;
 
         let radius = S * 2;
         let startAngle = 0;
         let endAngle = Math.PI * 2;
         for (i = 0; i < this.ships.length; i++) {
-            canvas_draw.element(
-                {
+            canvas_draw.element({
                     shape: {
-                        shapes: [],
-                        lines: [],
+                        shapes: [], lines: [],
                         arcs: [
                             [...this.ships[i].pos.pos, radius, startAngle, endAngle]
                         ]
@@ -78,6 +85,26 @@ class Spacewar {
                 },
                 true
             );
+        }
+
+        this.ctx.fillStyle = Spacewar.COLOR.BG;
+
+        for (i = 0; i < this.bullets.length; i++) {
+            canvas_draw.element({
+                    shape: {shapes: [], lines: [],
+                        arcs: [
+                            [...this.bullets[i].pos.pos, radius, startAngle, endAngle]
+                        ]
+                    }
+                },
+                true
+            );
+        }
+
+        // Show bullets
+        this.ctx.fillStyle = Spacewar.COLOR.BULLET;
+        for (i = 0; i < this.bullets.length; i++) {
+            canvas_draw.element(this.bullets[i], true);
         }
 
         // Show ships in their new position
