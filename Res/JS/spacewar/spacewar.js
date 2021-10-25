@@ -17,8 +17,7 @@ class Spacewar {
         let mass = 10;
         this.star = new SpacewarStar(
             new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 1),
-            0
-            // mass
+            mass
         );
 
         this.ships = [];
@@ -45,10 +44,20 @@ class Spacewar {
                 this.ships.splice(i, 1); // destroy ship
                 this.players.splice(i, 1); // destroy player
             }
+
+            if (this.players[i].bulletCreation) { // If bullet created by player
+                console.log("Got it")
+                this.bullets.push(this.players[i].bulletCreation);
+                this.players[i].bulletCreation = undefined;
+            }
         }
 
         for (i = 0; i < this.players.length; i++) {
             this.players[i].update();
+        }
+
+        for (i = 0; i < this.bullets.length; i++) {
+            this.bullets[i].update();
         }
     }
 
@@ -129,10 +138,8 @@ class Spacewar {
 
     keyDown(e) {
         let keyCode = e.keyCode;
-        let bullet;
         for(let i = 0; i < this.players.length; i++) {
-            bullet = this.players[i].keyDown(keyCode);
-            // TODO add bullet
+            this.players[i].keyDown(keyCode);
         }
     }
 
@@ -150,8 +157,7 @@ class Spacewar {
         this.ships.push(
             new SpacewarShip(
                 new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
-                new Point(0, 0)
-                // new Point(0.4, 0)
+                new Point(0.4, 0)
             )
         );
 
