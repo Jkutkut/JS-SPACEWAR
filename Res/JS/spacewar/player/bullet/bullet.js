@@ -2,18 +2,29 @@ class Bullet {
     static DEFAULT_SHAPE = {
         shapes: [
             [
-                new Point(-S * 0.1, -S * 0.1),
-                new Point(-S * 0.1, S * 0.1),
-                new Point(S * 0.2, S)
+                new Point(-S * 0.3, -S * 0.3),
+                
+                new Point(-S * 0.3, -S * 0.1),
+                
+                new Point(-S * 1, 0),
+
+                new Point(-S * 0.3, S * 0.1),
+                
+                new Point(-S * 0.3, S * 0.3),
+                new Point(S * 0.5, 0)
             ]
         ],
         lines: [],
         arcs: []
     };
 
-    constructor(pos, v) {
+    constructor(pos, v, angle) {
         this.pos = pos;
-        this.v = v;
+        this.angle = angle;
+        this.v = new Point(v, 0);
+        this.v.rotateBy(angle);
+
+        this.update();
     }
 
     get shape() {
