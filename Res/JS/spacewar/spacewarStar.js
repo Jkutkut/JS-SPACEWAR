@@ -2,12 +2,10 @@ class SpacewarStar {
 
     static G = 5;
     
-    constructor(pos, mass, v) {
+    constructor(pos, mass) {
         this.pos = pos;
 
         this.mass = mass;
-
-        this.v = v;
 
         this.a = new Point(0, 0);
     }
@@ -43,14 +41,7 @@ class SpacewarStar {
         ship.applyForce(force);
     }
 
-    applyForce(force) {
-        this.a.advanceWithDirection(force);
-    }
-
     update() {
-        // console.log(this.a);
-        this.v.advanceWithDirection(this.a);
-        this.pos.advanceWithDirection(this.v);
-        this.a.moveTo(0, 0);
+        
     }
 }
