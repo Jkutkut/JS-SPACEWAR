@@ -9,11 +9,13 @@ class CelestialObject {
      * [
      * 
      *      {
+     *          name: "opcional argument"
      *          color: "",
      *          shapes: [
      *              [Point, Point...],
      *              ...
-     *          ]
+     *          ],
+     *          fill: bool
      *      },
      *      ...
      * ];
