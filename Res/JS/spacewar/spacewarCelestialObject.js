@@ -22,8 +22,10 @@ class CelestialObject {
      */
     static DEFAULT_SHAPE = [
         {
+            name: "name of the shape of the object",
             color: "",
-            shapes: []
+            shapes: [],
+            fill: true
         }
     ];
 
@@ -126,8 +128,10 @@ class CelestialObject {
 
         for (i = 0; i < s.length; i++) {
             shape = {
+                name: s[i].name,
                 color: s[i].color,
-                shapes: []
+                shapes: [],
+                fill: s[i].fill
             };
 
             for (j = 0; j < s[i].shapes.length; j++) {
