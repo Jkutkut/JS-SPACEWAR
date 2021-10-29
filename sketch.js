@@ -16,7 +16,7 @@ window.onload = () => {
 
     // canvas refresh logic
     setInterval(update, 1000/60);
-    setInterval(show, 1000/60);
+    setInterval(show, 1000/30);
 
     // control logic
     $("body").keydown((e) => {game.keyDown(e)});

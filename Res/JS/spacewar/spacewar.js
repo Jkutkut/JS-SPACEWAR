@@ -123,9 +123,9 @@ class Spacewar {
             if (!this.ships[i].exhaustOn) {
                 continue;
             }
-            
+
             for (j = 1; j < this.ships[i].shape.length; j++) {
-                canvas_draw.subElement(this.ships[i].shape[i]);
+                canvas_draw.subElement(this.ships[i].shape[j]);
             }
         }
 
