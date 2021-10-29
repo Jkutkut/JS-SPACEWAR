@@ -12,7 +12,8 @@ class SpacewarShip extends CelestialObject{
                     new Point(-S * 0.33, -S * 0.5),
                     new Point(S * 0.8, 0)
                 ]
-            ]
+            ],
+            fill: true
         },
         {
             name: "exhaust_red",
@@ -25,7 +26,8 @@ class SpacewarShip extends CelestialObject{
                     new Point(-S * 1, -S * 0.1),
                     new Point(-S * 0.33, -S * 0.3)
                 ]
-            ]
+            ],
+            fill: true
         },
         {
             name: "exhaust_center",
@@ -36,7 +38,8 @@ class SpacewarShip extends CelestialObject{
                     new Point(-S * 0.9, 0),
                     new Point(-S * 0.33, -S * 0.2)
                 ]
-            ]
+            ],
+            fill: true
         }
     ];
 
