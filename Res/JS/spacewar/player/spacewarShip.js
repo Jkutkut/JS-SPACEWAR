@@ -47,10 +47,20 @@ class SpacewarShip extends CelestialObject{
 
     constructor(pos, v) {
         super(pos, v);
+
+        this._exhaustOn = false;
     }
 
+    // GETTERS
+
+    get exhaustOn() {
+        return this._exhaustOn;
+    }
+
+    // SETTERS
+
     thrusterOn() {
-        this.exhaustOn = true;
+        this._exhaustOn = true;
 
         let f = new Point(0, this.thrusterForce);
         f.rotate(this.angle);
@@ -58,6 +68,6 @@ class SpacewarShip extends CelestialObject{
     }
 
     thrusterOff() {
-        this.exhaustOn = false;
+        this._exhaustOn = false;
     }
 }
