@@ -43,7 +43,7 @@ class SpacewarShip extends CelestialObject{
         }
     ];
 
-    static THRUSTER_FORCE = 0.002;
+    static THRUSTER_FORCE = 0.02;
 
     constructor(pos, v) {
         super(pos, v);
@@ -65,13 +65,19 @@ class SpacewarShip extends CelestialObject{
 
     thrusterOn() {
         this._exhaustOn = true;
-
-        let f = new Point(0, SpacewarShip.THRUSTER_FORCE);
-        f.rotate(this.angle);
-        this.applyForce(f);
     }
 
     thrusterOff() {
         this._exhaustOn = false;
+    }
+
+    update() {
+        super.update();
+        
+        if (this.exhaustOn) {
+            let f = new Point(0, SpacewarShip.THRUSTER_FORCE);
+            f.rotate(this.angle);
+            this.applyForce(f);
+        }
     }
 }
