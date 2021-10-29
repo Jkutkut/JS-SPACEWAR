@@ -1,25 +1,19 @@
-class SpacewarStar {
+class SpacewarStar extends CelestialObject {
 
     static G = 5;
+
+    static RADIUS = S / 2;
     
     constructor(pos, mass) {
-        this.pos = pos;
-
-        this.mass = mass;
-
-        this.a = new Point(0, 0);
+        super(pos, new Point(0, 0), mass);
     }
 
     get shape() {
-        let radius = 5;
-        let startAngle = 0;
-        let endAngle = Math.PI * 2;
-
         return {
             shapes: [],
             lines: [],
             arcs: [
-                [...this.pos.pos, radius, startAngle, endAngle]
+                [...this.pos.pos, SpacewarStar.RADIUS, 0, Math.PI * 2]
             ]
         };
     }
