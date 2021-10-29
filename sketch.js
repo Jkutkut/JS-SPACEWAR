@@ -15,8 +15,8 @@ window.onload = () => {
     game = new Spacewar(ctx);
 
     // canvas refresh logic
-    setInterval(update, 60/1000);
-    setInterval(show, 30/1000);
+    setInterval(update, 1000/60);
+    setInterval(show, 1000/60);
 
     // control logic
     $("body").keydown((e) => {game.keyDown(e)});
@@ -98,7 +98,7 @@ const canvas_draw = {
         }
     },
     subElement: (e) => {
-        ctx.fillStyle(e.color);
+        ctx.fillStyle = e.color;
 
         for (let i = 0; i < e.shapes.length; i++) {
             canvas_draw.shape(e.shapes[i], e.fill);
