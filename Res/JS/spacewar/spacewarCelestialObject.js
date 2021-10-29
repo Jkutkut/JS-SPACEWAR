@@ -41,39 +41,64 @@ class CelestialObject {
 
     // GETTERS
 
+    get shape() {
+        return this._shapeOBJ;
+    }
+
     /**
-     * Position of the object
+     * Position of the object.
      */
     get pos() {
         return this._pos;
     }
 
     /**
-     * Position of the object
+     * Position of the object.
      */
     get position() {
-        return this._pos;
+        return this.pos;
     }
 
     /**
-     * Velocity of the object
+     * Velocity of the object.
+     */
+     get v() {
+        return this._v;
+    }
+
+    /**
+     * Velocity of the object.
      */
     get velocity() {
-        return this._v;
+        return this.v;
     }
 
     /**
-     * Velocity of the object
+     * Acceleration of the object.
      */
-    get v() {
-        return this._v;
+    get a() {
+        return this._a;
     }
 
     /**
-     * Mass of the object
+     * Acceleration of the object.
+     */
+    get acceleration() {
+        return this.a;
+    }
+
+    /**
+     * Mass of the object.
      */
     get mass() {
         return this._mass;
+    }
+
+    /**
+     * Angle of rotation of the object relative to the center of the object.
+     */
+    get angle() {
+        return this._angle;
     }
 
     /**
@@ -85,7 +110,7 @@ class CelestialObject {
     }
 
     /**
-     * Updates the position and the shape of the player
+     * Updates the position and the shape of the object
      */
     update() {
         this.v.advanceWithDirection(this.a);
@@ -95,20 +120,26 @@ class CelestialObject {
 
         // Update object shape
         this._shapeOBJ = [];
-        for (let i = 0, j, k, shape, shapes, p; i < this.DEFAULT_SHAPE.length; i++) {
+
+        let s = this.constructor.DEFAULT_SHAPE;
+        let i, j, k, shape, shapes, p;
+
+        for (i = 0; i < s.length; i++) {
             shape = {
-                color: this.DEFAULT_SHAPE[i].color,
+                color: s[i].color,
                 shapes: []
             };
 
-            for (j = 0; j < this.DEFAULT_SHAPE[i].shapes.length; j++) {
+            for (j = 0; j < s[i].shapes.length; j++) {
                 shapes = [];
 
-                for(k = 0; k < this.DEFAULT_SHAPE[i].shapes[j].length; k++) {
-                    p = this.DEFAULT_SHAPE[i].shapes[j][k].clone();
-                    
+                for(k = 0; k < s[i].shapes[j].length; k++) {
+                    p = s[i].shapes[j][k].clone();
+                    p.rotateBy(this.angle);
+                    p.advanceWithDirection(this.pos);
+                    shapes.push(p);
                 }
-                this._shapeOBJ[i].shapes.push(shapes);
+                shape.shapes.push(shapes);
             }
 
             this._shapeOBJ.push(shape);
