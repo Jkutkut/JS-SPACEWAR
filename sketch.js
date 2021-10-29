@@ -91,6 +91,18 @@ const canvas_draw = {
                 canvas_draw.element(pointShape(arr[i].getOUT_location(j)), true);
             }
         }
+    },
+    elementV2: (e) => {
+        for (let i = 0; i < e.length; i++) {
+            canvas_draw.subElement(e[i]);
+        }
+    },
+    subElement: (e) => {
+        ctx.fillStyle(e.color);
+
+        for (let i = 0; i < e.shapes.length; i++) {
+            canvas_draw.shape(e.shapes[i], e.fill);
+        }
     }
 }
 
