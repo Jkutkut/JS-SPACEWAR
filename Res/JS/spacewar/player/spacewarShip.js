@@ -1,20 +1,22 @@
 var S = 10;
 
-class SpacewarShip {
-    static DEFAULT_SHAPE = {
-        shapes: [
-            [
-                new Point(-S * 0.33, S * 0.5),
-                new Point(-S * 0.33, -S * 0.5),
-                new Point(S * 0.8, 0)
-            ]
-        ],
-        lines: [],
-        arcs: []
-    };
+class SpacewarShip extends CelestialObject{
 
-    static EXHAUST = [
+    static DEFAULT_SHAPE = [
         {
+            name: "body",
+            color: 'rgb(255, 255, 255)',
+            shapes: [
+                [
+                    new Point(-S * 0.33, S * 0.5),
+                    new Point(-S * 0.33, -S * 0.5),
+                    new Point(S * 0.8, 0)
+                ]
+            ]
+        },
+        {
+            name: "exhaust_red",
+            color: "rgb(255, 100, 100)",
             shapes: [
                 [
                     new Point(-S * 0.33, S * 0.3),
@@ -23,35 +25,23 @@ class SpacewarShip {
                     new Point(-S * 1, -S * 0.1),
                     new Point(-S * 0.33, -S * 0.3)
                 ]
-            ],
-            lines: [],
-            arcs: []
+            ]
         },
         {
+            name: "exhaust_center",
+            color: "rgba(255, 255, 255, 0.5)",
             shapes: [
                 [
                     new Point(-S * 0.33, S * 0.2),
                     new Point(-S * 0.9, 0),
                     new Point(-S * 0.33, -S * 0.2)
                 ]
-            ],
-            lines: [],
-            arcs: []
+            ]
         }
     ];
 
     constructor(pos, v) {
-        this._pos = pos;
-
-        this.v = v;
-        this.a = new Point(0, 0);
-
-        this.angle = 0;
-
-        this._shapeOBJ = null;
-
-        this.exhaustOn = false;
-        this._exhaustOBJ = [];
+        super(pos, v);
     }
 
     get pos() {
