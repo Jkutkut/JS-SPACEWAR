@@ -1,11 +1,6 @@
 class Spacewar {
     static COLOR = {
         BG: 'rgba(37, 37, 37, 1)',
-        SHIP: 'rgb(255, 255, 255)',
-        EXHAUST: [
-            'rgb(255, 100, 100)',
-            'rgba(255, 255, 255, 0.5)'
-        ],
         STAR: 'yellow',
         BULLET: 'rgb(255, 255, 255)'
     };
@@ -34,23 +29,23 @@ class Spacewar {
     update() {
         let i, d, ship;
 
-        // this.star.update();
+        this.star.update();
 
         for (i = 0; i < this.ships.length; i++) {
             ship = this.ships[i];
             
-            // this.star.attract(ship);
+            this.star.attract(ship);
             
             ship.update();
 
-            // d = this.star.pos.dist(ship.pos);
+            d = this.star.pos.dist(ship.pos);
 
-            // if (d < (S >> 1)) { // if star near
-            //     this.ships.splice(i, 1); // destroy ship
-            //     this.players.splice(i, 1); // destroy player
-            //     i--;
-            //     continue;
-            // }
+            if (d < (S >> 1)) { // if star near
+                this.ships.splice(i, 1); // destroy ship
+                this.players.splice(i, 1); // destroy player
+                i--;
+                continue;
+            }
 
             // if (this.players[i].bulletCreation) { // If bullet created by player
             //     this.bullets.push(this.players[i].bulletCreation);
@@ -76,9 +71,20 @@ class Spacewar {
 
         this.ctx.save(); // save previous styles & set our current styles
     
-        // Clear elements
-        // Clear ships and bullets
+        // Clear star, ships and bullets
         this.ctx.fillStyle = Spacewar.COLOR.BG;
+
+        canvas_draw.element({
+                shape: {
+                    shapes: [], lines: [],
+                    arcs: [
+                        [...this.star.pos.pos, radius, startAngle, endAngle]
+                    ]
+                }
+            },
+            true
+        );
+
 
         for (i = 0; i < this.ships.length; i++) {
             canvas_draw.element({
@@ -105,8 +111,11 @@ class Spacewar {
         //     );
         // }
 
+        // Show star, ships
 
-        // Show ships:
+        this.ctx.fillStyle = Spacewar.COLOR.STAR;
+        canvas_draw.element(this.star, true);
+
         for (i = 0; i < this.ships.length; i++) {
             // Draw ship's body
             canvas_draw.subElement(this.ships[i].shape[0]);
@@ -120,47 +129,10 @@ class Spacewar {
             }
         }
 
-        // // Clear star
-        // this.ctx.fillStyle = Spacewar.COLOR.BG;
-        
-        // canvas_draw.element({
-        //         shape: {shapes: [], lines: [],
-        //             arcs: [
-        //                 [...this.star.pos.pos, radius, startAngle, endAngle]
-        //             ]
-        //         }
-        //     },
-        //     true
-        // );
-        // // Show star
-        // this.ctx.fillStyle = Spacewar.COLOR.STAR;
-        // canvas_draw.element(this.star, true);
-
         // // Show bullets
         // this.ctx.fillStyle = Spacewar.COLOR.BULLET;
         // for (i = 0; i < this.bullets.length; i++) {
         //     canvas_draw.element(this.bullets[i], true);
-        // }
-
-        // // Show ships in their new position
-        // this.ctx.fillStyle = Spacewar.COLOR.SHIP;
-
-        // for (i = 0; i < this.ships.length; i++) {
-        //     // Show ship
-        //     canvas_draw.element(this.ships[i], true);
-            
-        //     // Show exhaust if on
-        //     if (this.ships[i].exhaustOn) {                
-        //         this.ctx.save();
-        //         for (let j = 0; j < this.ships[i].exhaust.length; j++) {
-        //             this.ctx.fillStyle = Spacewar.COLOR.EXHAUST[j];
-                    
-        //             for (let k = 0; k < this.ships[i].exhaust[j].shapes.length; k++) {
-        //                 canvas_draw.shape(this.ships[i].exhaust[j].shapes[k]);
-        //             }
-        //         }
-        //         this.ctx.restore();
-        //     }
         // }
 
         this.ctx.restore();
