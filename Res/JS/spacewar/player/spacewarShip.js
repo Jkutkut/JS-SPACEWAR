@@ -59,6 +59,10 @@ class SpacewarShip extends CelestialObject{
 
     // SETTERS
 
+    rotateBy(angle) {
+        this._angle += angle;
+    } 
+
     thrusterOn() {
         this._exhaustOn = true;
 
