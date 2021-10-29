@@ -34,13 +34,13 @@ class SpacewarPlayer {
 
         let deltaA = 0.02;
         if (this.state.right) {
-            this.ship.angle += deltaA;
+            this.ship.rotateBy(deltaA);
         }
         if (this.state.left) {
-            this.ship.angle -= deltaA;
+            this.ship.rotateBy(-deltaA);
         }
         if (this.state.forward) {
-            this.ship.pushForward();
+            this.ship.thrusterOn();
         }
         if (this.state.shoot) {
             if (this.coolDown == 0) {
@@ -77,7 +77,7 @@ class SpacewarPlayer {
                 break;
             case this.controls.forward:
                 this.state.forward = false;
-                this.ship.endPush();
+                this.ship.thrusterOff();
                 break;
             case this.controls.shoot:
                 this.state.shoot = false;
