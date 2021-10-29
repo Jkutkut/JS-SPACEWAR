@@ -47,6 +47,27 @@ class CelestialObject {
     }
 
     /**
+     * Position of the object
+     */
+    get position() {
+        return this._pos;
+    }
+
+    /**
+     * Velocity of the object
+     */
+    get velocity() {
+        return this._v;
+    }
+
+    /**
+     * Velocity of the object
+     */
+    get v() {
+        return this._v;
+    }
+
+    /**
      * Mass of the object
      */
     get mass() {
