@@ -41,7 +41,7 @@ class SpacewarShip extends CelestialObject{
         }
     ];
 
-    static THRUSTER_FORCE = 0.02;
+    static THRUSTER_FORCE = 0.005;
 
     constructor(pos, v) {
         super(pos, v);
