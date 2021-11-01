@@ -44,7 +44,8 @@ class SpacewarPlayer {
         }
         if (this.state.shoot) {
             if (this.coolDown == 0) {
-                this.bulletCreation = new Bullet(this.ship);
+                this.bulletCreation = new FastBullet(this.ship);
+                // this.bulletCreation = new Bullet(this.ship);
                 this.coolDown = SpacewarPlayer.COOL_DOWN;
             }
         }
