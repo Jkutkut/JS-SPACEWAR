@@ -25,50 +25,57 @@ class Spacewar {
         
         this.addPlayer();
 
-        this.bullets.push(new Bullet(this.ships[0])); // ! Debug
-        this.bullets.push(new FastBullet(this.ships[0])); // ! Debug
-        // this.bullets[0]._v.moveTo(0,0);
-
         this._elements2clear = [];
 
         this.update();
     }
 
     update() {
-        let i, d, ship;
+        let i, d, e;
 
         this.star.update();
 
         for (i = 0; i < this.ships.length; i++) {
-            ship = this.ships[i];
+            e = this.ships[i];
             
-            this.star.attract(ship);
+            this.star.attract(e);
             
-            ship.update();
+            e.update();
 
-            d = this.star.pos.dist(ship.pos);
+            d = this.star.pos.dist(e.pos);
 
-            if (d < (S >> 1)) { // if star near
+            if (d < S) { // if star near
                 this.ships.splice(i, 1); // destroy ship
                 this.players.splice(i, 1); // destroy player
                 i--;
                 continue;
             }
-
-            if (this.players[i].bulletCreation) { // If bullet created by player
-                this.bullets.push(this.players[i].bulletCreation);
-                this.players[i].bulletCreation = undefined;
-            }
         }
 
         for (i = 0; i < this.players.length; i++) {
-            this.players[i].update();
+            e = this.players[i];
+            e.update();
+
+            if (e.bulletCreation) { // If bullet created by player
+                this.bullets.push(e.bulletCreation);
+                e.bulletCreation = undefined;
+            }
         }
 
         for (i = 0; i < this.bullets.length; i++) {
-            this.star.attract(this.bullets[i]);
+            e = this.bullets[i];
 
-            this.bullets[i].update();
+            this.star.attract(e);
+
+            e.update();
+
+            d = this.star.pos.dist(e.pos);
+
+            if (d < (S)) { // if star near
+                this.bullets.splice(i, 1); // destroy ship
+                i--;
+                continue;
+            }
         }
     }
 
