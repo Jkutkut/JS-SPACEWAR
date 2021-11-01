@@ -22,10 +22,12 @@ class Spacewar {
         this.ships = [];
         this.players = [];
         this.bullets = [];
-
+        
         this.addPlayer();
-        // this.addPlayer();
-        // this.addPlayer();
+
+        this.bullets.push(new Bullet(this.ships[0])); // ! Debug
+        this.bullets.push(new FastBullet(this.ships[0])); // ! Debug
+        // this.bullets[0]._v.moveTo(0,0);
 
         this._elements2clear = [];
 
@@ -53,10 +55,10 @@ class Spacewar {
                 continue;
             }
 
-            // if (this.players[i].bulletCreation) { // If bullet created by player
-            //     this.bullets.push(this.players[i].bulletCreation);
-            //     this.players[i].bulletCreation = undefined;
-            // }
+            if (this.players[i].bulletCreation) { // If bullet created by player
+                this.bullets.push(this.players[i].bulletCreation);
+                this.players[i].bulletCreation = undefined;
+            }
         }
 
         for (i = 0; i < this.players.length; i++) {
@@ -64,6 +66,8 @@ class Spacewar {
         }
 
         for (i = 0; i < this.bullets.length; i++) {
+            this.star.attract(this.bullets[i]);
+
             this.bullets[i].update();
         }
     }
@@ -101,11 +105,12 @@ class Spacewar {
             }
         }
 
-        // // Show bullets
-        // this.ctx.fillStyle = Spacewar.COLOR.BULLET;
-        // for (i = 0; i < this.bullets.length; i++) {
-        //     canvas_draw.element(this.bullets[i], true);
-        // }
+        // Show bullets
+        for (i = 0; i < this.bullets.length; i++) {
+            // Draw ship's body
+            canvas_draw.subElement(this.bullets[i].shape[0]);
+            this.addElement2Clear(this.bullets[i].pos);
+        }
 
         this.ctx.restore();
     }
