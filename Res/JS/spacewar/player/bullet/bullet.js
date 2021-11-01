@@ -29,12 +29,14 @@ class FastBullet extends CelestialObject {
 
         this.ship = parentShip;
         
+        // Initial pos is the tip of the ship.
         let tip = new Point(S, 0);
         tip.rotateBy(this.angle);
 
         this.pos.advanceWithDirection(tip);
 
-        this.update();
+        // Fix velocity vector
+        this._v.rotateBy(this.angle);
     }
 
 
