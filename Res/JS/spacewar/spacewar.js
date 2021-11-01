@@ -1,9 +1,13 @@
+var S = 10;
+
 class Spacewar {
     static COLOR = {
         BG: 'rgba(37, 37, 37, 1)',
         STAR: 'yellow',
         BULLET: 'rgb(255, 255, 255)'
     };
+
+    static CLEAR_RADIUS = 2 * S;
 
     constructor(ctx) {
         this.ctx = ctx;
@@ -22,6 +26,8 @@ class Spacewar {
         this.addPlayer();
         // this.addPlayer();
         // this.addPlayer();
+
+        this._elements2clear = [];
 
         this.update();
     }
@@ -65,60 +71,26 @@ class Spacewar {
     show() {
         let i, j;
 
-        let radius = S * 2;
-        let startAngle = 0;
-        let endAngle = Math.PI * 2;
-
         this.ctx.save(); // save previous styles & set our current styles
     
         // Clear star, ships and bullets
-        this.ctx.fillStyle = Spacewar.COLOR.BG;
+        this.ctx.fillStyle = Spacewar.COLOR.BG;;
 
-        canvas_draw.element({
-                shape: {
-                    shapes: [], lines: [],
-                    arcs: [
-                        [...this.star.pos.pos, radius, startAngle, endAngle]
-                    ]
-                }
-            },
-            true
-        );
-
-
-        for (i = 0; i < this.ships.length; i++) {
-            canvas_draw.element({
-                    shape: {
-                        shapes: [], lines: [],
-                        arcs: [
-                            [...this.ships[i].pos.pos, radius, startAngle, endAngle]
-                        ]
-                    }
-                },
-                true
-            );
+        for (i = 0; i < this._elements2clear.length; i++) {
+            canvas_draw.element(...this._elements2clear[i]);
         }
-
-        // for (i = 0; i < this.bullets.length; i++) {
-        //     canvas_draw.element({
-        //             shape: {shapes: [], lines: [],
-        //                 arcs: [
-        //                     [...this.bullets[i].pos.pos, radius, startAngle, endAngle]
-        //                 ]
-        //             }
-        //         },
-        //         true
-        //     );
-        // }
+        this._elements2clear.length = 0;
 
         // Show star, ships
 
         this.ctx.fillStyle = Spacewar.COLOR.STAR;
         canvas_draw.element(this.star, true);
+        this.addElement2Clear(this.star.pos);
 
         for (i = 0; i < this.ships.length; i++) {
             // Draw ship's body
             canvas_draw.subElement(this.ships[i].shape[0]);
+            this.addElement2Clear(this.ships[i].pos);
             
             if (!this.ships[i].exhaustOn) {
                 continue;
@@ -136,6 +108,20 @@ class Spacewar {
         // }
 
         this.ctx.restore();
+    }
+
+    addElement2Clear(p) {
+        this._elements2clear.push([
+            {
+                shape: {
+                    shapes: [], lines: [],
+                    arcs: [
+                        [...p.pos, Spacewar.CLEAR_RADIUS, 0, 2 * Math.PI]
+                    ]
+                }
+            },
+            true
+        ]);
     }
 
     keyDown(e) {

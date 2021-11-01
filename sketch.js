@@ -15,7 +15,7 @@ window.onload = () => {
     game = new Spacewar(ctx);
 
     // canvas refresh logic
-    setInterval(update, 1000/60);
+    setInterval(update, 1000/120);
     setInterval(show, 1000/30);
 
     // control logic

@@ -1,5 +1,3 @@
-var S = 10;
-
 class SpacewarShip extends CelestialObject{
 
     static DEFAULT_SHAPE = [
@@ -73,7 +71,7 @@ class SpacewarShip extends CelestialObject{
 
     update() {
         super.update();
-        
+
         if (this.exhaustOn) {
             let f = new Point(0, SpacewarShip.THRUSTER_FORCE);
             f.rotate(this.angle);
