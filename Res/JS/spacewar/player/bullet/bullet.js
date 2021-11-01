@@ -36,6 +36,12 @@ class FastBullet extends CelestialObject {
 
         this.update();
     }
+
+
+    update() {
+        super.update();
+        this._angle = this.v.angle; // Make the bullet aim the same way it's moving to.
+    }
 }
 
 class Bullet extends FastBullet {
