@@ -21,6 +21,19 @@ window.onload = () => {
     // control logic
     $("body").keydown((e) => {game.keyDown(e)});
     $("body").keyup((e) => {game.keyUp(e)});
+
+    $("body").mousemove((e) => {
+        let p = new Point(e.pageX, e.pageY);
+        let p2 = distBorderPoint(ctx.canvas.width / 2, ctx.canvas.height / 2, p);
+
+        let d = p.dist(p2);
+        d = Math.round(d);
+        if (d < 20) {
+            ctx.fillStyle = "white"
+            ctx.strokeStyle = "white"
+            canvas_draw.arc(...p2.pos, 5, 0, 2 * Math.PI);
+        }
+    })
 };
 
 
@@ -115,4 +128,51 @@ function windowResize() {
     mainCanvas.css("height", window.innerHeight - offset);
 
     game = new Spacewar(ctx);
+}
+
+
+/**
+ * Get the closest point in a ellipse relative to the given point.
+ * 
+ * The ellipse is defined as the one contained on the rectangle (0,0), (2a, 2b).
+ * 
+ * This means:
+ * - The center of the ellipse is on the point (a, b).
+ * - The ellipse follows the equation: (x - a)^2 / a^2 + (y - b)^2 / b^2 = 1
+ * - If we want to generate curves of the ellipse:
+ *     - Curve based on x coord: y = +-(b / a * sqrt(a^2 - (x - a)^2)) + b
+ *     - Curve based on y coord: x = +-(a / b * sqrt(b^2 - (y - b)^2)) + a
+ * - This curves enable us to get the desired coordinate (x or y) using the other one. Therefore, the closest point can be obtained using this method.
+ * 
+ * @param {number} a - Half the width of the ellipse.
+ * @param {number} b - Half the height of the ellipse.
+ * @param {Point} p - Point instance with the coordinates of the point to use.
+ * @returns New Point with the closest point in the ellipse.
+ */
+function distBorderPoint(a, b, p) {
+    let cX = Math.abs(p.x - a);
+    let cY = Math.abs(p.y - b);
+
+    if (cX < cY) { // Calc the y coordinate (more precise)
+        let yCoord = b / a * Math.sqrt(a*a - (p.x - a)**2);
+
+        if (p.y < b) {
+            yCoord *= -1;
+        }
+
+        yCoord += b;
+
+        return new Point(p.x, yCoord);
+    }
+    else { // Calc the x coordinate
+        let xCoord = a / b * Math.sqrt(b*b - (p.y - b)**2);
+
+        if (p.x < a) {
+            xCoord *= -1;
+        }
+
+        xCoord += a;
+
+        return new Point(xCoord, p.y);
+    }
 }
