@@ -1,4 +1,4 @@
-class Bullet extends CelestialObject {
+class FastBullet extends CelestialObject {
     static DEFAULT_SHAPE = [
         {
             name: "body",
@@ -21,34 +21,29 @@ class Bullet extends CelestialObject {
         }
     ];
 
-    static V = 0.8;
+    static V = 1.2;
+    static MASS = 10;
 
-    constructor(parentShip, mass=0) {
-        super(parentShip.pos.clone(), null, mass);
+    constructor(parentShip, v=new Point(FastBullet.V, 0), mass=FastBullet.MASS) {
+        super(parentShip.pos.clone(), v, mass, parentShip.angle);
 
         this.ship = parentShip;
-        this._angle = this.ship.angle;
         
         let tip = new Point(S, 0);
         tip.rotateBy(this.angle);
 
         this.pos.advanceWithDirection(tip);
 
-        this._v = new Point(Bullet.V, 0);
-        this._v.rotateBy(this.angle);
-
         this.update();
     }
 }
 
-class FastBullet extends Bullet {
-    static V = 2 * Bullet.V;
-    static MASS = 1;
+class Bullet extends FastBullet {
+    static V = FastBullet.V * 0.7;
 
     constructor(parentShip) {
-        super(parentShip, FastBullet.MASS);
-
-        this._v = new Point(FastBullet.V, 0);
-        this._v.rotateBy(this.angle);
+        super(parentShip, new Point(Bullet.V, 0));
     }
+
+    applyForce() {}
 }
