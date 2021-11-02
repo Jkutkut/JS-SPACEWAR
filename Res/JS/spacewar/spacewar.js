@@ -20,9 +20,12 @@ class Spacewar {
         this.players = [];
         this.bullets = [];
         
-        this.addPlayer();
-
         this._elements2clear = [];
+
+        this.addPlayer();
+        this.addPlayer();
+        this.addPlayer();
+        this.addPlayer();
 
         this.update();
     }
@@ -179,10 +182,32 @@ class Spacewar {
     addPlayer() {
         let index = this.ships.length;
 
+        let angleOri;
+        switch(index) {
+            case 0:
+                angleOri = 1;
+                break;
+            case 1:
+                angleOri = 0;
+                break;
+            case 2:
+                angleOri = -0.5;
+                break;
+            default:
+                angleOri = 0.5;
+                break;
+        }
+
+        let orientation = new Point(0, ctx.canvas.height >> 2);
+        orientation.rotateBy(Math.PI * angleOri);
+
+        let v = new Point(-1, 0);
+        v.rotateBy(Math.PI * angleOri);
+
         this.ships.push(
             new SpacewarShip(
-                new Point(ctx.canvas.width >> 1, ctx.canvas.height >> 2),
-                new Point(1, 0)
+                new Point((ctx.canvas.width >> 1) + orientation.x, (ctx.canvas.height >> 1) + orientation.y),
+                v
             )
         );
         
