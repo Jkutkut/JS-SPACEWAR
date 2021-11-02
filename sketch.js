@@ -144,12 +144,12 @@ function windowResize() {
  *     - Curve based on y coord: x = +-(a / b * sqrt(b^2 - (y - b)^2)) + a
  * - This curves enable us to get the desired coordinate (x or y) using the other one. Therefore, the closest point can be obtained using this method.
  * 
+ * @param {Point} p - Point instance with the coordinates of the point to use.
  * @param {number} a - Half the width of the ellipse.
  * @param {number} b - Half the height of the ellipse.
- * @param {Point} p - Point instance with the coordinates of the point to use.
  * @returns New Point with the closest point in the ellipse.
  */
-function distBorderPoint(a, b, p) {
+function distBorderPoint(p, a=(ctx.canvas.width >> 1), b=(ctx.canvas.height >> 1)) {
     let cX = Math.abs(p.x - a);
     let cY = Math.abs(p.y - b);
 
