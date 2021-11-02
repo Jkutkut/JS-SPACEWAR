@@ -1,3 +1,6 @@
+/**
+ * Class to create star systems.
+ */
 class SpacewarStarSystem extends CelestialObject {
 
     /**
@@ -29,10 +32,13 @@ class SpacewarStarSystem extends CelestialObject {
      * Area were all objects inside will burn (relative to the center of mass).
      */
     static REAL_KILL_RADIUS = 0.7 * SpacewarStarSystem.KILL_RADIUS;
-    
+
     constructor(pos, mass, n=2) {
         super(pos, new Point(0, 0), mass);
 
+        /**
+         * Amount of stars of the system.
+         */
         this.n = n;
     }
 
