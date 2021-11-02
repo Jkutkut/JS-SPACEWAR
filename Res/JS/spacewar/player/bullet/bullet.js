@@ -5,16 +5,33 @@ class FastBullet extends CelestialObject {
             color: "rgb(255, 255, 255)",
             shapes: [
                 [
-                    new Point(-S * 0.3, -S * 0.3),
-                    
-                    new Point(-S * 0.3, -S * 0.1),
-                    
-                    new Point(-S * 1, 0),
-    
-                    new Point(-S * 0.3, S * 0.1),
-                    
+                    new Point(-S * 0.3, -S * 0.3),                    
                     new Point(-S * 0.3, S * 0.3),
                     new Point(S * 0.5, 0)
+                ]
+            ],
+            fill: true
+        },
+        {
+            name: "exhaust",
+            color: "rgb(255, 100, 100)",
+            shapes: [
+                [
+                    new Point(-S * 0.3, -S * 0.2),
+                    new Point(-S * 1.4, 0),
+                    new Point(-S * 0.3, S * 0.2)
+                ]
+            ],
+            fill: true
+        },
+        {
+            name: "exhaust",
+            color: "rgba(40, 100, 255, 0.5)",
+            shapes: [
+                [
+                    new Point(-S * 0.3, -S * 0.15),
+                    new Point(-S, 0),
+                    new Point(-S * 0.3, S * 0.15)
                 ]
             ],
             fill: true
