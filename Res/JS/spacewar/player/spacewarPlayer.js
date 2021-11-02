@@ -5,18 +5,44 @@ $.getJSON(
     }
 );
 
+/**
+ * Logic to handle the controls of a user and control their ship. 
+ */
 class SpacewarPlayer {
 
+    /**
+     * Array with controls (loaded from json file.).
+     */
     static CONTROLS;
+
+    /**
+     * Cool down between shots.
+     */
     static COOL_DOWN = 100;
 
+    /**
+     * Amount to rotate (in radians) each time the rotation keys are pressed.
+     */
+    static DELTA_ROTATION = 0.02;
+
+    /**
+     * @param {number} index - Index of the desired controls (from the CONTROLS static var)
+     * @param {SpacewarShip} ship - Ship to control.
+     */
     constructor(index, ship) {
         this.ship = ship;
 
+        // Get controls
         this.controls = SpacewarPlayer.CONTROLS[index];
 
+        /**
+         * If undefined, the player does not want to create a bullet. Else, the content is the bullet to add to the game.
+         */
         this.bulletCreation = undefined;
 
+        /**
+         * The state of the keys pressed.
+         */
         this.state = {
             right: false,
             left: false,
@@ -24,26 +50,28 @@ class SpacewarPlayer {
             shoot: false
         }
 
-        this.coolDown = 0; // Time remaining until I can shoot again
+        /**
+         * Time remaining until I can shoot again
+         */
+        this.coolDown = 0;
     }
 
     update() {
-        if (this.coolDown > 0) {
+        if (this.coolDown > 0) { // If cooling down
             this.coolDown--;
         }
 
-        let deltaA = 0.02;
-        if (this.state.right) {
-            this.ship.rotateBy(deltaA);
+        if (this.state.right) { // Right key pressed
+            this.ship.rotateBy(SpacewarShip.DELTA_ROTATION);
         }
-        if (this.state.left) {
-            this.ship.rotateBy(-deltaA);
+        if (this.state.left) { // Left key pressed
+            this.ship.rotateBy(-SpacewarShip.DELTA_ROTATION);
         }
-        if (this.state.forward) {
+        if (this.state.forward) { // Forward key pressed
             this.ship.thrusterOn();
         }
-        if (this.state.shoot) {
-            if (this.coolDown == 0) {
+        if (this.state.shoot) { // Shoot key pressed
+            if (this.coolDown == 0) { // If not cooling down
                 this.bulletCreation = new FastBullet(this.ship);
                 // this.bulletCreation = new Bullet(this.ship);
                 this.coolDown = SpacewarPlayer.COOL_DOWN;
@@ -51,6 +79,10 @@ class SpacewarPlayer {
         }
     }
 
+    /**
+     * Handle a key pressed down
+     * @param {number} keyCode - Code associated with the key
+     */
     keyDown(keyCode) {
         switch(keyCode) {
             case this.controls.right:
@@ -68,6 +100,10 @@ class SpacewarPlayer {
         }
     }
 
+    /**
+     * Handle a key pressed up.
+     * @param {number} keyCode - Code associated with the key
+     */
     keyUp(keyCode) {
         switch(keyCode) {
             case this.controls.right:
