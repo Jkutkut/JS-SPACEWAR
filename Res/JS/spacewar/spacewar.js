@@ -9,7 +9,6 @@ class Spacewar {
 
     constructor(ctx) {
         this.ctx = ctx;
-        this.ctx.lineWidth = 3;
 
         let mass = 50;
         this.star = new SpacewarStarSystem(
