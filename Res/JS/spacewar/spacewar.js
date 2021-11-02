@@ -2,9 +2,7 @@ var S = 10;
 
 class Spacewar {
     static COLOR = {
-        BG: 'rgba(37, 37, 37, 1)',
-        STAR: 'yellow',
-        BULLET: 'rgb(255, 255, 255)'
+        BG: 'rgba(37, 37, 37, 1)'
     };
 
     static CLEAR_RADIUS = 2 * S;
@@ -14,7 +12,7 @@ class Spacewar {
         this.ctx.lineWidth = 3;
 
         let mass = 50;
-        this.star = new SpacewarStar(
+        this.star = new SpacewarStarSystem(
             new Point((ctx.canvas.width >> 1), ctx.canvas.height >> 1),
             mass
         );
@@ -105,9 +103,15 @@ class Spacewar {
 
         // Show star, ships
 
-        this.ctx.fillStyle = Spacewar.COLOR.STAR;
-        canvas_draw.element(this.star, true);
-        this.addElement2Clear(this.star.pos);
+        let starShape = this.star.shape;
+        for (i = 0; i < starShape.length; i++) {
+            this.ctx.fillStyle = starShape[i].color;
+
+            for (j = 0; j < starShape[i].shape.length; j++) {
+                canvas_draw.arc(...starShape[i].shape[j], true);
+                // this.addElement2Clear(); // TODO add it if starts move   
+            }
+        }
 
         for (i = 0; i < this.ships.length; i++) {
             // Draw ship's body
