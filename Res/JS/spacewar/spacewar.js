@@ -83,9 +83,7 @@ class Spacewar {
             for(j = i + 1; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S) {
                     this.bullets.splice(j, 1); // destroy bullet
-                    this.bullets.splice(i, 1); // destroy bullet
-                    
-                    i -= 2;
+                    this.bullets.splice(i--, 1); // destroy bullet
                     break;
                 }
             }
@@ -173,7 +171,6 @@ class Spacewar {
                 new Point(1, 0)
             )
         );
-
         
         this.players.push(
             new SpacewarPlayer(index, this.ships[index])
