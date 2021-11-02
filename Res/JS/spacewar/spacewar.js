@@ -40,9 +40,7 @@ class Spacewar {
             
             e.update();
 
-            d = this.star.pos.dist(e.pos);
-
-            if (d < S) { // if star near
+            if (this.star.burningElement(e)) { // if star near
                 this.ships.splice(i, 1); // destroy ship
                 this.players.splice(i, 1); // destroy player
                 i--;
@@ -67,10 +65,9 @@ class Spacewar {
 
             e.update();
 
-            d = this.star.pos.dist(e.pos);
             p = distBorderPoint(e.pos);
 
-            if (d < S || // if star near or
+            if (this.star.burningElement(e) || // if star near or
                 p.dist(e.pos) < S) { // on the border of the screen
                 
                 this.bullets.splice(i--, 1); // destroy bullet
