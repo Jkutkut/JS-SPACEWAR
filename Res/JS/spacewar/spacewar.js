@@ -31,7 +31,7 @@ class Spacewar {
     }
 
     update() {
-        let i, d, e;
+        let i, j, d, e, p;
 
         this.star.update();
 
@@ -70,11 +70,24 @@ class Spacewar {
             e.update();
 
             d = this.star.pos.dist(e.pos);
+            p = distBorderPoint(e.pos);
 
-            if (d < (S)) { // if star near
-                this.bullets.splice(i, 1); // destroy ship
-                i--;
+            if (d < S || // if star near or
+                p.dist(e.pos) < S) { // on the border of the screen
+                
+                this.bullets.splice(i--, 1); // destroy bullet
                 continue;
+            }
+
+
+            for(j = i + 1; j < this.bullets.length; j++) {
+                if (e.pos.dist(this.bullets[j].pos) < S) {
+                    this.bullets.splice(j, 1); // destroy bullet
+                    this.bullets.splice(i, 1); // destroy bullet
+                    
+                    i -= 2;
+                    break;
+                }
             }
         }
     }
