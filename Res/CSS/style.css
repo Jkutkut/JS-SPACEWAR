@@ -11,3 +11,68 @@ canvas {
     background: var(--bg);
     border-radius: 50%;
 }
+
+/* stats menu */
+.playerContainer {
+    position: absolute;
+    width: 140px;
+    height: 90px;
+
+    background: rgb(40, 49, 51);
+    color: white;
+    border: 5px solid var(--bg);
+}
+
+.player1 {
+    top: 0px;
+    left: 0px;
+}
+
+.player2 {
+    top: 0px;
+    right: 0px;
+}
+
+.player3 {
+    bottom: 0px;
+    left: 0px;
+}
+
+.player4 {
+    bottom: 0px;
+    right: 0px;
+}
+
+/* name */
+.name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.name div {
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.name:nth-child(2) {
+    font-style: italic;
+}
+
+/* kda */
+.kda {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.kda div {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+}
+
+.kda div div{
+    justify-content: center;
+}
