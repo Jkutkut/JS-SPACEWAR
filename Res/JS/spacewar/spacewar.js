@@ -179,7 +179,7 @@ class Spacewar {
     }
 
     // Player creation/deletion
-    addPlayer() {
+    addPlayer(bulletType=FastBullet) {
         let index = this.ships.length;
 
         let angleOri;
@@ -212,7 +212,7 @@ class Spacewar {
         );
         
         this.players.push(
-            new SpacewarPlayer(index, this.ships[index])
+            new SpacewarPlayer(index, this.ships[index], bulletType)
         );
     }
 }
