@@ -1,4 +1,7 @@
-class SpacewarShip extends CelestialObject{
+/**
+ * Class to create ships.
+ */
+class SpacewarShip extends CelestialObject {
 
     static DEFAULT_SHAPE = [
         {
@@ -41,6 +44,9 @@ class SpacewarShip extends CelestialObject{
         }
     ];
 
+    /**
+     * The power of the thruster as a force.
+     */
     static THRUSTER_FORCE = 0.005;
 
     constructor(pos, v) {
@@ -51,20 +57,32 @@ class SpacewarShip extends CelestialObject{
 
     // GETTERS
 
+    /**
+     * @returns Whenever the thruster is on.
+     */
     get exhaustOn() {
         return this._exhaustOn;
     }
 
     // SETTERS
-
+    /**
+     * Rotates the given amount relative to the current angle of the ship.
+     * @param {number} angle - Angle of rotation
+     */
     rotateBy(angle) {
         this._angle += angle;
     } 
 
+    /**
+     * Turns on the Thruster.
+     */
     thrusterOn() {
         this._exhaustOn = true;
     }
 
+    /**
+     * Turns off the Thruster.
+     */
     thrusterOff() {
         this._exhaustOn = false;
     }
@@ -72,10 +90,10 @@ class SpacewarShip extends CelestialObject{
     update() {
         super.update();
 
-        if (this.exhaustOn) {
+        if (this.exhaustOn) { // If thruster on, impulse the ship
             let f = new Point(0, SpacewarShip.THRUSTER_FORCE);
             f.rotate(this.angle);
-            this.applyForce(f);
+            this.applyForce(f); // Apply the force in the direction oposite of the exhaust.
         }
     }
 }
