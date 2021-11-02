@@ -42,27 +42,42 @@ class SpacewarStar extends CelestialObject {
 }
 
 class SpacewarStarSystem extends SpacewarStar {
-    constructor(pos, mass, n=3, r=18, w=0.01) {
+
+    /**
+     * Angular velocity of the system.
+     */
+    static W = 0.01;
+
+    /**
+     * Radius from the center of mass to any star in the system.
+     */
+    static SYSTEM_RADIUS = 20;
+
+    constructor(pos, mass, n=3) {
         super(pos, mass);
 
         this.n = n;
-
-        this.systemRadius = r;
-
-        this.angularV = w;
     }
 
     get shape() {
-        let s = [{
-            color: "yellow",
-            shape: []
-        }];
+        let s = [
+            {
+                color: "yellow",
+                shape: []
+            },
+            {
+                color: "rgba(150, 150, 0, 0.15)",
+                shape: [
+                    [...this.pos.pos, SpacewarStarSystem.SYSTEM_RADIUS * 2.5, 0, Math.PI * 2]
+                ]
+            }
+        ];
 
         let deltaAngle = Math.PI / this.n * 2;
         for (let i = 0; i < this.n; i++) {
             s[0].shape.push([
-                this.pos.x + (this.systemRadius * Math.cos(deltaAngle * i + this.angle)),
-                this.pos.y + (this.systemRadius * Math.sin(deltaAngle * i + this.angle)),
+                this.pos.x + (SpacewarStarSystem.SYSTEM_RADIUS * Math.cos(deltaAngle * i + this.angle)),
+                this.pos.y + (SpacewarStarSystem.SYSTEM_RADIUS * Math.sin(deltaAngle * i + this.angle)),
                 SpacewarStar.RADIUS,
                 0,
                 Math.PI * 2
@@ -74,6 +89,6 @@ class SpacewarStarSystem extends SpacewarStar {
     update() {
         super.update();
 
-        this._angle += this.angularV;
+        this._angle += SpacewarStarSystem.W;
     }
 }
