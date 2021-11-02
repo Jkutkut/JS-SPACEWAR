@@ -9,7 +9,6 @@ $.getJSON(
  * Logic to handle the controls of a user and control their ship. 
  */
 class SpacewarPlayer {
-
     /**
      * Array with controls (loaded from json file.).
      */
@@ -29,11 +28,13 @@ class SpacewarPlayer {
      * @param {number} index - Index of the desired controls (from the CONTROLS static var)
      * @param {SpacewarShip} ship - Ship to control.
      */
-    constructor(index, ship) {
+    constructor(index, ship, bulletType=FastBullet) {
         this.ship = ship;
 
         // Get controls
         this.controls = SpacewarPlayer.CONTROLS[index];
+
+        this.bulletType = bulletType;
 
         /**
          * If undefined, the player does not want to create a bullet. Else, the content is the bullet to add to the game.
@@ -72,8 +73,7 @@ class SpacewarPlayer {
         }
         if (this.state.shoot) { // Shoot key pressed
             if (this.coolDown == 0) { // If not cooling down
-                this.bulletCreation = new FastBullet(this.ship);
-                // this.bulletCreation = new Bullet(this.ship);
+                this.bulletCreation = new this.bulletType(this.ship);
                 this.coolDown = SpacewarPlayer.COOL_DOWN;
             }
         }
