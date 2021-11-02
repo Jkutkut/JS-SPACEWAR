@@ -7,22 +7,44 @@
     },
     "controls": [
         {
+            "rightKey": "d",
             "right": 68,
+            "leftKey": "a",
             "left": 65,
+            "forwardKey": "w",
             "forward": 87,
-            "shoot": 32
+            "shootKey": "s",
+            "shoot": 83
         },
         {
+            "rightKey": "right",
             "right": 39,
+            "leftKey": "left",
             "left": 37,
+            "forwardKey": "up",
             "forward": 38,
+            "shootKey": "down",
             "shoot": 40
         },
         {
-            "right": 75,
-            "left": 72,
-            "forward": 85,
-            "shoot": 74
+            "rightKey": "l",
+            "right": 76,
+            "leftKey": "j",
+            "left": 74,
+            "forwardKey": "i",
+            "forward": 73,
+            "shootKey": "k",
+            "shoot": 75
+        },
+        {
+            "rightKey": "h",
+            "right": 72,
+            "leftKey": "f",
+            "left": 70,
+            "forwardKey": "t",
+            "forward": 84,
+            "shootKey": "g",
+            "shoot": 71
         }
     ]
 }
