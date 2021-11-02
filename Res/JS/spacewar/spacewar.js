@@ -28,13 +28,14 @@ class Spacewar {
     }
 
     update() {
-        let i, j, d, e, p;
+        let i, j, e, p;
 
         this.star.update();
 
+        // Update players
         for (i = 0; i < this.ships.length; i++) {
-            e = this.ships[i];
-            
+            e = this.ships[i]; // get player
+
             this.star.attract(e);
             
             e.update();
@@ -44,6 +45,18 @@ class Spacewar {
                 this.players.splice(i, 1); // destroy player
                 i--;
                 continue;
+            }
+
+            // Check if bullet hit player
+            for (j = 0; j < this.bullets.length; j++) {
+                if (e.pos.dist(this.bullets[j].pos) < S) { // If bullet close
+                    this.ships.splice(i, 1); // destroy ship
+                    this.players.splice(i, 1); // destroy player
+                    i--;
+
+                    this.bullets.splice(j--, 1);
+                    break;
+                }
             }
         }
 
