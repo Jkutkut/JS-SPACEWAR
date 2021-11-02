@@ -42,9 +42,38 @@ class SpacewarStar extends CelestialObject {
 }
 
 class SpacewarStarSystem extends SpacewarStar {
-    constructor(pos, mass, n=1) {
+    constructor(pos, mass, n=3, r=18, w=0.01) {
         super(pos, mass);
 
         this.n = n;
+
+        this.systemRadius = r;
+
+        this.angularV = w;
+    }
+
+    get shape() {
+        let s = [{
+            color: "yellow",
+            shape: []
+        }];
+
+        let deltaAngle = Math.PI / this.n * 2;
+        for (let i = 0; i < this.n; i++) {
+            s[0].shape.push([
+                this.pos.x + (this.systemRadius * Math.cos(deltaAngle * i + this.angle)),
+                this.pos.y + (this.systemRadius * Math.sin(deltaAngle * i + this.angle)),
+                SpacewarStar.RADIUS,
+                0,
+                Math.PI * 2
+            ]);
+        }
+        return s;
+    }
+
+    update() {
+        super.update();
+
+        this._angle += this.angularV;
     }
 }

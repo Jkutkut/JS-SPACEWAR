@@ -89,7 +89,7 @@ class Spacewar {
     }
 
     show() {
-        let i, j;
+        let i, j, e;
 
         this.ctx.save(); // save previous styles & set our current styles
     
@@ -109,7 +109,8 @@ class Spacewar {
 
             for (j = 0; j < starShape[i].shape.length; j++) {
                 canvas_draw.arc(...starShape[i].shape[j], true);
-                // this.addElement2Clear(); // TODO add it if starts move   
+                e = new Point(starShape[i].shape[j][0], starShape[i].shape[j][1]);
+                this.addElement2Clear(e); // TODO add it if starts move   
             }
         }
 
