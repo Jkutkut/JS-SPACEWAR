@@ -1,5 +1,12 @@
-
-
+/**
+ * Class with all the logic related to a object in space.
+ * This class is meant to be used as a prototype class to generate the rest of the classes.
+ * 
+ * @see SpacewarShip class
+ * @see SpacewarStarSystem class
+ * @see Bullet class
+ * @see FastBullet class
+ */
 class CelestialObject {
     /**
      * Default shape of the object. It contains a Array containing the shape-clusters of the same color.
@@ -42,7 +49,9 @@ class CelestialObject {
     }
 
     // GETTERS
-
+    /**
+     * @returns The shape of the object.
+     */
     get shape() {
         return this._shapeOBJ;
     }
@@ -123,7 +132,7 @@ class CelestialObject {
         // Update object shape
         this._shapeOBJ = [];
 
-        let s = this.constructor.DEFAULT_SHAPE;
+        let s = this.constructor.DEFAULT_SHAPE; // Get the default shape (but pick the child shape, not this one).
         let i, j, k, shape, shapes, p;
 
         for (i = 0; i < s.length; i++) {
