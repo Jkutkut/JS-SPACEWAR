@@ -1,47 +1,14 @@
-class SpacewarStar extends CelestialObject {
-
-    static G = 5;
-
-    static RADIUS = S / 2;
-    
-    constructor(pos, mass) {
-        super(pos, new Point(0, 0), mass);
-    }
-
-    get shape() {
-        return [
-            {
-                color: "yellow",
-                shape: [
-                    [...this.pos.pos, SpacewarStar.RADIUS, 0, Math.PI * 2]
-                ]
-            }
-        ];
-    }
+class SpacewarStarSystem extends CelestialObject {
 
     /**
-     * Attracts the ship to the given object
-     * @param {SpacewarShip} ship - Ship to attract.
+     * Gravitational constant
      */
-    attract(ship) {
-        let force = this.pos.minus(ship.pos);
+    static G = 5;
 
-        let dSq = force.mag();
-        dSq *= dSq; // Squared
-
-        let strength = SpacewarStar.G * this.mass * ship.mass / dSq;
-
-        force.setMagnitude(strength);
-
-        ship.applyForce(force);
-    }
-
-    update() {
-        
-    }
-}
-
-class SpacewarStarSystem extends SpacewarStar {
+    /**
+     * Radius of a star
+     */
+    static RADIUS = S / 2;
 
     /**
      * Angular velocity of the system.
@@ -52,9 +19,19 @@ class SpacewarStarSystem extends SpacewarStar {
      * Radius from the center of mass to any star in the system.
      */
     static SYSTEM_RADIUS = 20;
+    
+    /**
+     * Area were all object should burn if they are that close (relative to the center of mass).
+     */
+    static KILL_RADIUS = 2.5 * SpacewarStarSystem.SYSTEM_RADIUS;
 
-    constructor(pos, mass, n=3) {
-        super(pos, mass);
+    /**
+     * Area were all objects inside will burn (relative to the center of mass).
+     */
+    static REAL_KILL_RADIUS = 0.7 * SpacewarStarSystem.KILL_RADIUS;
+    
+    constructor(pos, mass, n=2) {
+        super(pos, new Point(0, 0), mass);
 
         this.n = n;
     }
@@ -68,7 +45,7 @@ class SpacewarStarSystem extends SpacewarStar {
             {
                 color: "rgba(150, 150, 0, 0.15)",
                 shape: [
-                    [...this.pos.pos, SpacewarStarSystem.SYSTEM_RADIUS * 2.5, 0, Math.PI * 2]
+                    [...this.pos.pos, SpacewarStarSystem.KILL_RADIUS, 0, Math.PI * 2]
                 ]
             }
         ];
@@ -78,7 +55,7 @@ class SpacewarStarSystem extends SpacewarStar {
             s[0].shape.push([
                 this.pos.x + (SpacewarStarSystem.SYSTEM_RADIUS * Math.cos(deltaAngle * i + this.angle)),
                 this.pos.y + (SpacewarStarSystem.SYSTEM_RADIUS * Math.sin(deltaAngle * i + this.angle)),
-                SpacewarStar.RADIUS,
+                SpacewarStarSystem.RADIUS,
                 0,
                 Math.PI * 2
             ]);
@@ -90,5 +67,30 @@ class SpacewarStarSystem extends SpacewarStar {
         super.update();
 
         this._angle += SpacewarStarSystem.W;
+    }
+
+    /**
+     * Attracts the ship to the system.
+     * @param {SpacewarShip} ship - Ship to attract.
+     */
+    attract(ship) {
+        let force = this.pos.minus(ship.pos);
+
+        let dSq = force.mag();
+        dSq *= dSq; // Squared
+
+        let strength = SpacewarStarSystem.G * this.mass * ship.mass / dSq;
+
+        force.setMagnitude(strength);
+
+        ship.applyForce(force);
+    }
+
+    /**
+     * @param {CelestialObject} e - Object to check
+     * @returns Whenever the given object is on the lethal zone of the star.
+     */
+    burningElement(e) {
+        return this.pos.dist(e.pos) < SpacewarStarSystem.REAL_KILL_RADIUS;
     }
 }
