@@ -110,7 +110,7 @@ class Spacewar {
             for (j = 0; j < starShape[i].shape.length; j++) {
                 canvas_draw.arc(...starShape[i].shape[j], true);
                 e = new Point(starShape[i].shape[j][0], starShape[i].shape[j][1]);
-                this.addElement2Clear(e); // TODO add it if starts move   
+                this.addElement2Clear(e, starShape[i].shape[j][2]);
             }
         }
 
@@ -138,13 +138,13 @@ class Spacewar {
         this.ctx.restore();
     }
 
-    addElement2Clear(p) {
+    addElement2Clear(p, radius=Spacewar.CLEAR_RADIUS) {
         this._elements2clear.push([
             {
                 shape: {
                     shapes: [], lines: [],
                     arcs: [
-                        [...p.pos, Spacewar.CLEAR_RADIUS, 0, 2 * Math.PI]
+                        [...p.pos, radius, 0, 2 * Math.PI]
                     ]
                 }
             },
