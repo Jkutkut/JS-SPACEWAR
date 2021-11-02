@@ -9,13 +9,14 @@ class SpacewarStar extends CelestialObject {
     }
 
     get shape() {
-        return {
-            shapes: [],
-            lines: [],
-            arcs: [
-                [...this.pos.pos, SpacewarStar.RADIUS, 0, Math.PI * 2]
-            ]
-        };
+        return [
+            {
+                color: "yellow",
+                shape: [
+                    [...this.pos.pos, SpacewarStar.RADIUS, 0, Math.PI * 2]
+                ]
+            }
+        ];
     }
 
     /**
@@ -37,5 +38,13 @@ class SpacewarStar extends CelestialObject {
 
     update() {
         
+    }
+}
+
+class SpacewarStarSystem extends SpacewarStar {
+    constructor(pos, mass, n=1) {
+        super(pos, mass);
+
+        this.n = n;
     }
 }
