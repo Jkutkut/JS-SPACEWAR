@@ -62,10 +62,10 @@ class SpacewarPlayer {
         }
 
         if (this.state.right) { // Right key pressed
-            this.ship.rotateBy(SpacewarShip.DELTA_ROTATION);
+            this.ship.rotateBy(SpacewarPlayer.DELTA_ROTATION);
         }
         if (this.state.left) { // Left key pressed
-            this.ship.rotateBy(-SpacewarShip.DELTA_ROTATION);
+            this.ship.rotateBy(-SpacewarPlayer.DELTA_ROTATION);
         }
         if (this.state.forward) { // Forward key pressed
             this.ship.thrusterOn();
