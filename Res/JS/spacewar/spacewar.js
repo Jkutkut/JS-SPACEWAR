@@ -142,9 +142,10 @@ class Spacewar {
 
         // Show bullets
         for (i = 0; i < this.bullets.length; i++) {
-            // Draw ship's body
-            canvas_draw.subElement(this.bullets[i].shape[0]);
-            this.addElement2Clear(this.bullets[i].pos);
+            for (j = 0; j < this.bullets[i].shape.length; j++) {
+                canvas_draw.subElement(this.bullets[i].shape[j]);
+            }
+            this.addElement2Clear(this.bullets[i].pos);            
         }
 
         this.ctx.restore();
