@@ -52,12 +52,12 @@ class Spacewar {
 
             // Check if bullet hit player
             for (j = 0; j < this.bullets.length; j++) {
-                if (e.pos.dist(this.bullets[j].pos) < S) { // If bullet close
+                if (e.pos.dist(this.bullets[j].pos) < S && this.bullets[j].ship != e) { // If bullet form enemy close
                     this.ships.splice(i, 1); // destroy ship
                     this.players.splice(i, 1); // destroy player
                     i--;
 
-                    this.bullets.splice(j--, 1);
+                    this.bullets.splice(j--, 1); // destroy bullet
                     break;
                 }
             }
