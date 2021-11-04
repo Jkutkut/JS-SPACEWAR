@@ -1,5 +1,6 @@
 :root {
     --bg: rgb(37, 37, 37);
+    --bg-light: rgb(100, 100, 100);
     --bg-dark: rgb(30, 30, 30);
 }
 
