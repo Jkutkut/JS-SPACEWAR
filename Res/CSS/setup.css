@@ -4,7 +4,7 @@
 
 .playBtnContainer {
     width: 99%;
-
+    
     position: absolute;
     bottom: 0px;
 
@@ -28,12 +28,44 @@
 
     background: var(--playBtnColor);
     transition: 0.5s;
+
+    --angle:5deg;
 }
 
 .playBtn:hover {
-    --offsetX: 0px;
-    --offsetY: 20px;
+    --offsetX: -0px;
+    --offsetY: -20px;
 
-    transform: translate(calc(-1 * var(--offsetX)), calc(-1 * var(--offsetY)));
-    box-shadow: var(--offsetX) var(--offsetY) var(--bg-light);
+    transform: 
+        translate(var(--offsetX), var(--offsetY));
+}
+
+@keyframes tilt {
+    25% {
+        transform: rotate(var(--angle));
+    }
+    100% {
+        transform: rotate(calc( -1 * var(--angle)));
+    }
+}
+
+@keyframes launchGame {
+    75% {
+        transform: 
+            scale(5)
+            translate(0, -100px);
+        opacity: 100%;
+    }
+    100% {
+        transform: 
+            scale(5)
+            translate(0, -100px);
+        opacity: 0%;
+    }
+}
+
+.launchGame {
+    -webkit-animation: 
+        tilt 0.4s 0s 2,
+        launchGame 2s 0.8s 1;
 }
