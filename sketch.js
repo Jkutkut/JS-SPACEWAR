@@ -127,6 +127,16 @@ function windowResize() {
     mainCanvas.css("width", window.innerWidth - offset);
     mainCanvas.css("height", window.innerHeight - offset);
 
+    let w, h;
+    let halfW = (window.innerWidth - offset) >> 1;
+    let halfH = (window.innerHeight - offset) >> 1;
+
+    w = ctx.canvas.width * 0.2;
+    h = - halfH / halfW * Math.sqrt(halfW*halfW - (w - halfW)**2) + halfH;
+
+    $(".playerContainer").css("--w", w + "px");
+    $(".playerContainer").css("--h", h + "px");
+
     game = new Spacewar(ctx);
 }
 
