@@ -1,7 +1,39 @@
 .setup {
+    --playBtnColor: rgb(255, 255, 255);
 }
 
-.gameSetup {
-    width: 100%;
-    height: 100%;
+.playBtnContainer {
+    width: 99%;
+
+    position: absolute;
+    bottom: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playBtn {
+    width: 250px;
+    height: 120px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: large;
+
+    margin: 20px;
+    border-radius: 10px;
+
+    background: var(--playBtnColor);
+    transition: 0.5s;
+}
+
+.playBtn:hover {
+    --offsetX: 0px;
+    --offsetY: 20px;
+
+    transform: translate(calc(-1 * var(--offsetX)), calc(-1 * var(--offsetY)));
+    box-shadow: var(--offsetX) var(--offsetY) var(--bg-light);
 }
