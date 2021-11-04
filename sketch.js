@@ -40,10 +40,16 @@ window.onload = () => {
 function show() {
     game.show();
 };
+
 function update() {
     game.update();
 }
 
+/**
+ * Collection of functions to represent elements on the screen.
+ * 
+ * It requires a global variable called ctx storing the 2d context of the desired canvas.
+ */
 const canvas_draw = {
     line: (startPoint, endPoint) => {
         ctx.beginPath();
@@ -119,7 +125,9 @@ const canvas_draw = {
     }
 }
 
-
+/**
+ * When screen get resized, this function is called to handle the change.
+ */
 function windowResize() {
     ctx.canvas.width = window.innerWidth - offset;
     ctx.canvas.height = window.innerHeight - offset;
