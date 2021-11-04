@@ -15,10 +15,10 @@ canvas {
 /* stats menu */
 .playerContainer {
     position: absolute;
-    width: 140px;
-    height: 90px;
+    width: var(--w, 140px);
+    height: var(--h, 90px);
 
-    background: rgb(40, 49, 51);
+    background: var(--bg,rgb(40, 49, 51));
     color: white;
     border: 5px solid var(--bg);
 }
@@ -54,8 +54,12 @@ canvas {
     padding: 10px;
     padding-bottom: 0px;
 }
+.name img {
+    height: 30px;
+    aspect-ratio: 1;
+}
 
-.name:nth-child(2) {
+.name .usr {
     font-style: italic;
 }
 
