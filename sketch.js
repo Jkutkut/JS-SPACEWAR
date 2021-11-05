@@ -4,6 +4,36 @@ var game;
 var offset = 20;
 
 window.onload = () => {
+    $("#playBtn").click(loadGame);
+};
+
+
+function loadGame() {
+    let btn = $("#playBtn");
+
+    let cssVar2millis = (id, varName) => {
+        let v = $(id).css(varName);
+        let reg = new RegExp("^ *([\\.\\d]+)s");
+        return parseFloat(reg.exec(v)[1]) * 1000;
+    }
+
+    // Update the label of the playButton
+    btn.text("LOADING"); // change the label of the btn
+    btn.removeClass("playBtn");
+    btn.addClass("launchGame");
+    
+    setTimeout(
+        () => {btn.text("LET'S PLAY")}, // change the label of the btn after
+        cssVar2millis(".launchGame", "--launchOffsetTime") // Time defined by css
+    );
+
+    setTimeout(
+        startGame,
+        cssVar2millis(".launchGame", "--totalAnimationTime") 
+    );
+}
+
+function startGame() {
     mainCanvas = $("mainCanvas");
     ctx = document.getElementById("mainCanvas").getContext('2d');
 
@@ -33,7 +63,11 @@ window.onload = () => {
             ctx.strokeStyle = "white"
             canvas_draw.arc(...p2.pos, 5, 0, 2 * Math.PI);
         }
-    })
+    });
+
+    // All game ready, show the container:
+    $(".setup").css("display", "none");
+    $(".game").css("display", "block");
 };
 
 
