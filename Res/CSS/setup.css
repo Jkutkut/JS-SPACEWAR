@@ -1,12 +1,68 @@
 .setup {
     --playBtnColor: rgb(255, 255, 255);
+
+    height: 100%;
 }
 
+/* * Player creator * */
+.tableContainer {
+    width: 100%;
+    height: 80vh;
+
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.playerCreationContainer {
+    margin: 2%;
+
+    color: white;
+    background: var(--bg-light);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputField {
+    margin-top: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.inputField label {
+    margin-right: 10px;
+    font-size: large;
+}
+
+.inputField input {
+    float: var(--align, right);
+}
+
+.colorPicker {
+    width: 40%;
+}
+
+.pCanvas {
+    margin: 20px;
+    background: var(--bg);
+}
+
+
+/* * PlayBtn * */
 .playBtnContainer {
     width: 99%;
-    
-    position: absolute;
-    bottom: 0px;
+    height: 18vh;
 
     display: flex;
     align-items: center;

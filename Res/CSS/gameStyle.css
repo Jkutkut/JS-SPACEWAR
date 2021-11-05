@@ -3,7 +3,7 @@
     display: none;
 }
 
-canvas {
+.game canvas {
     background: var(--bg);
     border-radius: 50%;
 }

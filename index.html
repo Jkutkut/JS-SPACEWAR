@@ -32,10 +32,18 @@
 						<label for="ascii2binaryInput">Name: </label>
 						<input type="text" id="p1Name" oninput="">
 					</div>
-					<div class="inputField">
-						<label for="ascii2binaryInput">Color: </label>
-						<input id="p1Color" value="#FFFFFFFF" data-jscolor="{}" oninput="">
+					<div class="row">
+						<div class="inputField">
+							<label for="p1ShipColor">Ship color: </label>
+							<input id="p1ShipColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+						<div class="inputField">
+							<label for="p1BulletColor">Bullet color: </label>
+							<input id="p1BulletColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
 					</div>
+
+					<canvas id="p1Canvas" class="pCanvas"></canvas>
 				</div>
 				<div class="playerCreationContainer p2C">
 					<div>
