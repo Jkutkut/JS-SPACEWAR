@@ -13,7 +13,7 @@
     justify-content: center;
 }
 
-.playBtn {
+#playBtn {
     width: 250px;
     height: 120px;
 
@@ -49,7 +49,7 @@
     }
 }
 
-@keyframes launchGame {
+@keyframes launchGameAni {
     75% {
         transform: 
             scale(5)
@@ -65,7 +65,13 @@
 }
 
 .launchGame {
+    --tiltDuration: 0.4s;
+    --launchOffsetTime: 0.8s;
+    --launchDuration: 2s;
+
+    --totalAnimationTime: 2.5s;
+    
     -webkit-animation: 
-        tilt 0.4s 0s 2,
-        launchGame 2s 0.8s 1;
+        tilt var(--tiltDuration) 0s 2,
+        launchGameAni var(--launchDuration) var(--launchOffsetTime) 1;
 }
