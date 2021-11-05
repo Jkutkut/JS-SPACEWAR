@@ -14,6 +14,7 @@
 		<!-- JS -->
 		<script src="https://cdn.jsdelivr.net/gh/Jkutkut/JS-Tools@master/point.js"></script>
 		<script src="Res/JS/jquery-3.6.0.min.js"></script>
+		<script src="Res/JS/jscolor-2.4.6/jscolor.min.js"></script>
 
 		<script src="Res/JS/spacewar/spacewar.js"></script>
 		<script src="Res/JS/spacewar/spacewarCelestialObject.js"></script>
@@ -25,6 +26,36 @@
 	</head>
 	<body>
 		<div class="setup gameSetup">
+			<div class="tableContainer">
+				<div class="playerCreationContainer p1C">
+					<div class="inputField">
+						<label for="ascii2binaryInput">Name: </label>
+						<input type="text" id="p1Name" oninput="">
+					</div>
+					<div class="inputField">
+						<label for="ascii2binaryInput">Color: </label>
+						<input id="p1Color" value="#FFFFFFFF" data-jscolor="{}" oninput="">
+					</div>
+				</div>
+				<div class="playerCreationContainer p2C">
+					<div>
+						Name:
+					</div>
+					<div>
+						player2
+					</div>
+				</div>
+				<div class="playerCreationContainer p3C">
+					<div>
+						player3
+					</div>
+				</div>
+				<div class="playerCreationContainer p4C">
+					<div>
+						player4
+					</div>
+				</div>
+			</div>
 			<div class="playBtnContainer">
 				<div id="playBtn" class="playBtn">PLAY NOW</div>
 			</div>
