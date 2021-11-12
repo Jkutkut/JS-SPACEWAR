@@ -49,6 +49,14 @@
     float: var(--align, right);
 }
 
+.inputField input:hover {
+    /* When mouse over the text field, change the style to give feedback */
+    border-color: var(--bg-light);
+    transform: scale(1.05);
+
+    transition: 0.1s;
+}
+
 .colorPicker {
     width: 40%;
 }
