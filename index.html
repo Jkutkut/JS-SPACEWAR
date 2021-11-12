@@ -29,7 +29,7 @@
 			<div class="tableContainer">
 				<div class="playerCreationContainer p1C">
 					<div class="inputField">
-						<label for="ascii2binaryInput">Name: </label>
+						<label for="p1Name">Name: </label>
 						<input type="text" id="p1Name" oninput="">
 					</div>
 					<div class="row">
@@ -46,22 +46,58 @@
 					<canvas id="p1Canvas" class="pCanvas"></canvas>
 				</div>
 				<div class="playerCreationContainer p2C">
-					<div>
-						Name:
+					<div class="inputField">
+						<label for="p2Name">Name: </label>
+						<input type="text" id="p2Name" oninput="">
 					</div>
-					<div>
-						player2
+					<div class="row">
+						<div class="inputField">
+							<label for="p2ShipColor">Ship color: </label>
+							<input id="p2ShipColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+						<div class="inputField">
+							<label for="p2BulletColor">Bullet color: </label>
+							<input id="p2BulletColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
 					</div>
+
+					<canvas id="p2Canvas" class="pCanvas"></canvas>
 				</div>
 				<div class="playerCreationContainer p3C">
-					<div>
-						player3
+					<div class="inputField">
+						<label for="p3Name">Name: </label>
+						<input type="text" id="p3Name" oninput="">
 					</div>
+					<div class="row">
+						<div class="inputField">
+							<label for="p3ShipColor">Ship color: </label>
+							<input id="p3ShipColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+						<div class="inputField">
+							<label for="p3BulletColor">Bullet color: </label>
+							<input id="p3BulletColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+					</div>
+
+					<canvas id="p3Canvas" class="pCanvas"></canvas>
 				</div>
 				<div class="playerCreationContainer p4C">
-					<div>
-						player4
+					<div class="inputField">
+						<label for="p4Name">Name: </label>
+						<input type="text" id="p4Name" oninput="">
 					</div>
+					<div class="row">
+						<div class="inputField">
+							<label for="p4ShipColor">Ship color: </label>
+							<input id="p4ShipColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+						<div class="inputField">
+							<label for="p4BulletColor">Bullet color: </label>
+							<input id="p4BulletColor" class="colorPicker" value="rgb(255, 255, 255, 1)" data-jscolor="{}" oninput="">
+						</div>
+					</div>
+
+					<canvas id="p4Canvas" class="pCanvas"></canvas>
 				</div>
 			</div>
 			<div class="playBtnContainer">
