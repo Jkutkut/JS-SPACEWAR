@@ -1,0 +1,2 @@
+nPlayers=2;
+
