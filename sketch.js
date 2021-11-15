@@ -31,7 +31,10 @@ function loadGame() {
     
     // Set animation for btn
     setTimeout(
-        () => {btn.text("LET'S PLAY")}, // change the label of the btn after
+        () => {
+            btn.text("LET'S PLAY");
+            $(".tableContainer").css("filter", "blur(1.5rem)");
+        }, // change the label of the btn after
         cssVar2millis(".launchGame", "--launchOffsetTime") // Time defined by css
     );
 
