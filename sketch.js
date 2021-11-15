@@ -1,11 +1,18 @@
-var mainCanvas, ctx;
+var mainCanvas, canvasContext;
 var game;
 
 var offset = 20;
 
-window.onload = () => {
+window.addEventListener("load", () => {
     $("#playBtn").click(loadGame);
-};
+
+    mainCanvas = $("mainCanvas");
+    canvasContext = document.getElementById("mainCanvas").getContext('2d');
+
+    // Resize window logic
+    windowResize();
+    $(window).resize(windowResize);
+});
 
 
 function loadGame() {
@@ -22,6 +29,7 @@ function loadGame() {
     btn.removeClass("playBtn");
     btn.addClass("launchGame");
     
+    // Set animation for btn
     setTimeout(
         () => {btn.text("LET'S PLAY")}, // change the label of the btn after
         cssVar2millis(".launchGame", "--launchOffsetTime") // Time defined by css
@@ -33,14 +41,7 @@ function loadGame() {
     );
 }
 
-function startGame() {
-    mainCanvas = $("mainCanvas");
-    ctx = document.getElementById("mainCanvas").getContext('2d');
-
-    // Resize window logic
-    windowResize();
-    $(window).resize(windowResize);
-
+function startGame(ctx=canvasContext) {
     // Create game
     game = new Spacewar(ctx);
 
@@ -85,14 +86,14 @@ function update() {
  * It requires a global variable called ctx storing the 2d context of the desired canvas.
  */
 const canvas_draw = {
-    line: (startPoint, endPoint, ctx=ctx) => {
+    line: (startPoint, endPoint, ctx=canvasContext) => {
         ctx.beginPath();
         ctx.moveTo(...startPoint.pos);
         ctx.lineTo(...endPoint.pos);
         ctx.closePath();
         ctx.stroke();
     },
-    arc: (x, y, radius, startAngle, endAngle, fill=false) => {
+    arc: (x, y, radius, startAngle, endAngle, fill=false, ctx=canvasContext) => {
         ctx.beginPath();
         ctx.arc(x, y, radius, startAngle, endAngle);
         if (fill) {
@@ -102,7 +103,7 @@ const canvas_draw = {
             ctx.stroke();
         }
     },
-    shape: (arr, fill=true, ctx=ctx) => {
+    shape: (arr, fill=true, ctx=canvasContext) => {
         ctx.beginPath();
         ctx.moveTo(...arr[0].pos);
         for (let i = 1; i < arr.length; i++) {
@@ -116,41 +117,41 @@ const canvas_draw = {
             ctx.stroke();
         }
     },
-    element: (element, fill=false) => {
+    element: (element, fill=false, ctx=canvasContext) => {
         let shape = element.shape;
         let i;
 
         for (i = 0; i < shape.shapes.length; i++) {
-            canvas_draw.shape(shape.shapes[i], fill);
+            canvas_draw.shape(shape.shapes[i], fill, ctx);
         }
 
         for (i = 0; i < shape.lines.length; i++) {
-            canvas_draw.line(...shape.lines[i]);
+            canvas_draw.line(...shape.lines[i], ctx);
         }
         
         for (i = 0; i < shape.arcs.length; i++) {
-            canvas_draw.arc(...shape.arcs[i], fill);
+            canvas_draw.arc(...shape.arcs[i], fill, ctx);
         }
     },
-    array: (arr) => {
+    array: (arr, ctx=canvasContext) => {
         for (let i = 0; i < arr.length; i++) {
             canvas_draw.element(arr[i]);
     
             for (let j = 0; j < arr[i].IO_SIZE.IN; j++) {
-                canvas_draw.element(pointShape(arr[i].getIN_location(j)), true);
+                canvas_draw.element(pointShape(arr[i].getIN_location(j)), true, ctx);
             }
     
             for (let j = 0; j < arr[i].IO_SIZE.OUT; j++) {
-                canvas_draw.element(pointShape(arr[i].getOUT_location(j)), true);
+                canvas_draw.element(pointShape(arr[i].getOUT_location(j)), true, ctx);
             }
         }
     },
-    elementV2: (e, ctx=ctx) => {
+    elementV2: (e, ctx=canvasContext) => {
         for (let i = 0; i < e.length; i++) {
             canvas_draw.subElement(e[i], ctx);
         }
     },
-    subElement: (e, ctx=ctx) => {
+    subElement: (e, ctx=canvasContext) => {
         ctx.fillStyle = e.color;
 
         for (let i = 0; i < e.shapes.length; i++) {
@@ -162,7 +163,7 @@ const canvas_draw = {
 /**
  * When screen get resized, this function is called to handle the change.
  */
-function windowResize() {
+function windowResize(ctx=canvasContext) {
     ctx.canvas.width = window.innerWidth - offset;
     ctx.canvas.height = window.innerHeight - offset;
 
