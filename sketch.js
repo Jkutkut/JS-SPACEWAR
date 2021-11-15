@@ -85,7 +85,7 @@ function update() {
  * It requires a global variable called ctx storing the 2d context of the desired canvas.
  */
 const canvas_draw = {
-    line: (startPoint, endPoint) => {
+    line: (startPoint, endPoint, ctx=ctx) => {
         ctx.beginPath();
         ctx.moveTo(...startPoint.pos);
         ctx.lineTo(...endPoint.pos);
@@ -102,7 +102,7 @@ const canvas_draw = {
             ctx.stroke();
         }
     },
-    shape: (arr, fill=true) => {
+    shape: (arr, fill=true, ctx=ctx) => {
         ctx.beginPath();
         ctx.moveTo(...arr[0].pos);
         for (let i = 1; i < arr.length; i++) {
@@ -145,16 +145,16 @@ const canvas_draw = {
             }
         }
     },
-    elementV2: (e) => {
+    elementV2: (e, ctx=ctx) => {
         for (let i = 0; i < e.length; i++) {
-            canvas_draw.subElement(e[i]);
+            canvas_draw.subElement(e[i], ctx);
         }
     },
-    subElement: (e) => {
+    subElement: (e, ctx=ctx) => {
         ctx.fillStyle = e.color;
 
         for (let i = 0; i < e.shapes.length; i++) {
-            canvas_draw.shape(e.shapes[i], e.fill);
+            canvas_draw.shape(e.shapes[i], e.fill, ctx);
         }
     }
 }
