@@ -46,6 +46,8 @@ class CelestialObject {
         this._a = new Point(0, 0);
 
         this._shapeOBJ = [];
+
+        this.bodyColor = this.constructor.DEFAULT_SHAPE[0].color; // Color of the 1º body
     }
 
     // GETTERS
@@ -142,6 +144,10 @@ class CelestialObject {
                 shapes: [],
                 fill: s[i].fill
             };
+
+            if (i == 0) { // If shape is the one representing the body of the object
+                shape.color = this.bodyColor; //  Change it to the body color (enables body color customization)
+            }
 
             for (j = 0; j < s[i].shapes.length; j++) {
                 shapes = [];
