@@ -199,7 +199,7 @@ class Spacewar {
                 break;
         }
 
-        let orientation = new Point(0, ctx.canvas.height >> 2);
+        let orientation = new Point(0, this.ctx.canvas.height >> 2);
         orientation.rotateBy(Math.PI * angleOri);
 
         let v = new Point(-1, 0);
@@ -207,7 +207,7 @@ class Spacewar {
 
         this.ships.push(
             new SpacewarShip(
-                new Point((ctx.canvas.width >> 1) + orientation.x, (ctx.canvas.height >> 1) + orientation.y),
+                new Point((this.ctx.canvas.width >> 1) + orientation.x, (this.ctx.canvas.height >> 1) + orientation.y),
                 v
             )
         );
