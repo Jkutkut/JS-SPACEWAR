@@ -8,10 +8,6 @@ window.addEventListener("load", () => {
 
     mainCanvas = $("mainCanvas");
     canvasContext = document.getElementById("mainCanvas").getContext('2d');
-
-    // Resize window logic
-    windowResize();
-    $(window).resize(windowResize);
 });
 
 
@@ -45,6 +41,10 @@ function loadGame() {
 }
 
 function startGame(ctx=canvasContext) {
+    // Resize window logic
+    windowResize();
+    $(window).resize(windowResize);
+
     // Create game
     game = new Spacewar(ctx);
 
