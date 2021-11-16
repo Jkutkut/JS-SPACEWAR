@@ -4,7 +4,7 @@ bullets = [];
 ctxs = [];
 
 // When the page is loaded
-$(document).ready(() => {
+window.addEventListener("load", () => {
     // When the user enters a name, verify it
     // for (let i = 1; i <= 4; i++) {
     //     $(`#p${i}Name`).on('input', () => {
@@ -16,6 +16,9 @@ $(document).ready(() => {
     for (let i = 0; i < 4; i++) {
         ctxs[i] = document.getElementById(`p${i + 1}Canvas`).getContext('2d');
         updatePlayerScreen(i);
+
+        $(`#p${i+1}ShipColor`).on('input', () => {updateShip(i)});
+        $(`#p${i+1}BulletColor`).on('input', () => {updateBullet(i)});
     }
 });
 
