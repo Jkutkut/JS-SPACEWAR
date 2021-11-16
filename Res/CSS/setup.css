@@ -81,12 +81,10 @@ body {
 
 .bulletMenu input[type="radio"] {
     width: 1rem;
-    transition: 10s;
 }
 
 .bulletMenu input[type="radio"]:hover {
     transform: scale(1.3);
-    transform: scale(10.3);
 }
 
 .colorPicker {
