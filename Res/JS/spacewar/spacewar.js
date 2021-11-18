@@ -7,7 +7,7 @@ class Spacewar {
 
     static CLEAR_RADIUS = 2 * S;
 
-    constructor(ctx) {
+    constructor(ctx, configuration) {
         this.ctx = ctx;
 
         let mass = 50;
@@ -22,10 +22,10 @@ class Spacewar {
         
         this._elements2clear = [];
 
-        this.addPlayer();
-        this.addPlayer();
-        this.addPlayer();
-        this.addPlayer();
+        this._configuration = configuration;
+        for (let i = 0; i < configuration.length; i++) {
+            this.addPlayer(configuration[i]);
+        }
 
         this.update();
     }
@@ -180,7 +180,7 @@ class Spacewar {
     }
 
     // Player creation/deletion
-    addPlayer(bulletType=FastBullet) {
+    addPlayer(conf) {
         let index = this.ships.length;
 
         let angleOri;
@@ -211,9 +211,11 @@ class Spacewar {
                 v
             )
         );
+
+        this.ships[index].bodyColor = conf.shipColor;
         
         this.players.push(
-            new SpacewarPlayer(index, this.ships[index], bulletType)
+            new SpacewarPlayer(index, this.ships[index], conf.bulletType, conf.bulletColor)
         );
     }
 }
