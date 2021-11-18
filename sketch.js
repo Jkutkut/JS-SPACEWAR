@@ -183,7 +183,7 @@ function windowResize(ctx=canvasContext) {
     $(".playerContainer").css("--w", w + "px");
     $(".playerContainer").css("--h", h + "px");
 
-    game = new Spacewar(ctx);
+    game = new Spacewar(ctx, getPlayersConfiguration());
 }
 
 
