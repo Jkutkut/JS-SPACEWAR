@@ -94,3 +94,24 @@ function verifyName(index) {
     // If the name is not taken, set the error message to empty
     nameField.setCustomValidity('');
 }
+
+/**
+ * @returns Array of objects with the information of the players playing.
+ */
+function getPlayersConfiguration() {
+    let obj = [];
+    for (let i = 1; i <= 4; i++) {
+        if ($(`#p${i}Name`).val() == "") {
+            continue;
+        }
+
+        obj.push({
+            index: i,
+            name: $(`#p${i}Name`).val(),
+            bulletType: $(`#p${i}fastBullet`).is(":checked")? FastBullet : Bullet,
+            shipColor: $(`#p${i}ShipColor`).attr("data-current-color"),
+            bulletColor: $(`#p${i+1}BulletColor`).attr("data-current-color")
+        });
+    }
+    return obj;
+}
