@@ -205,7 +205,7 @@ function windowResize(ctx=canvasContext) {
  * @param {number} b - Half the height of the ellipse.
  * @returns New Point with the closest point in the ellipse.
  */
-function distBorderPoint(p, a=(ctx.canvas.width >> 1), b=(ctx.canvas.height >> 1)) {
+function distBorderPoint(p, a=(canvasContext.canvas.width >> 1), b=(canvasContext.canvas.height >> 1)) {
     let cX = Math.abs(p.x - a);
     let cY = Math.abs(p.y - b);
 
