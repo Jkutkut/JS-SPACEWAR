@@ -28,13 +28,14 @@ class SpacewarPlayer {
      * @param {number} index - Index of the desired controls (from the CONTROLS static var)
      * @param {SpacewarShip} ship - Ship to control.
      */
-    constructor(index, ship, bulletType=FastBullet) {
+    constructor(index, ship, bulletType, bulletColor) {
         this.ship = ship;
 
         // Get controls
         this.controls = SpacewarPlayer.CONTROLS[index];
 
         this.bulletType = bulletType;
+        this.bulletColor = bulletColor;
 
         /**
          * If undefined, the player does not want to create a bullet. Else, the content is the bullet to add to the game.
@@ -74,6 +75,7 @@ class SpacewarPlayer {
         if (this.state.shoot) { // Shoot key pressed
             if (this.coolDown == 0) { // If not cooling down
                 this.bulletCreation = new this.bulletType(this.ship);
+                this.bulletCreation.bodyColor = this.bulletColor;
                 this.coolDown = SpacewarPlayer.COOL_DOWN;
             }
         }
