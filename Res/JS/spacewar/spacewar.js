@@ -215,7 +215,7 @@ class Spacewar {
         this.ships[index].bodyColor = conf.shipColor;
         
         this.players.push(
-            new SpacewarPlayer(index, this.ships[index], conf.bulletType, conf.bulletColor)
+            new SpacewarPlayer(conf.index - 1, this.ships[index], conf.bulletType, conf.bulletColor)
         );
     }
 }
