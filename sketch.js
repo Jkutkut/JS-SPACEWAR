@@ -46,7 +46,7 @@ function startGame(ctx=canvasContext) {
     $(window).resize(windowResize);
 
     // Create game
-    game = new Spacewar(ctx);
+    game = new Spacewar(ctx, getPlayersConfiguration());
 
     // canvas refresh logic
     setInterval(update, 1000/120);
