@@ -110,7 +110,7 @@ function getPlayersConfiguration() {
             name: $(`#p${i}Name`).val(),
             bulletType: $(`#p${i}fastBullet`).is(":checked")? FastBullet : Bullet,
             shipColor: $(`#p${i}ShipColor`).attr("data-current-color"),
-            bulletColor: $(`#p${i+1}BulletColor`).attr("data-current-color")
+            bulletColor: $(`#p${i}BulletColor`).attr("data-current-color")
         });
     }
     return obj;
