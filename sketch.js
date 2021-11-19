@@ -166,9 +166,9 @@ const canvas_draw = {
 /**
  * When screen get resized, this function is called to handle the change.
  */
-function windowResize(ctx=canvasContext) {
-    ctx.canvas.width = window.innerWidth - offset;
-    ctx.canvas.height = window.innerHeight - offset;
+function windowResize() {
+    canvasContext.canvas.width = window.innerWidth - offset;
+    canvasContext.canvas.height = window.innerHeight - offset;
 
     mainCanvas.css("width", window.innerWidth - offset);
     mainCanvas.css("height", window.innerHeight - offset);
@@ -177,13 +177,13 @@ function windowResize(ctx=canvasContext) {
     let halfW = (window.innerWidth - offset) >> 1;
     let halfH = (window.innerHeight - offset) >> 1;
 
-    w = ctx.canvas.width * 0.2;
+    w = canvasContext.canvas.width * 0.2;
     h = - halfH / halfW * Math.sqrt(halfW*halfW - (w - halfW)**2) + halfH;
 
     $(".playerContainer").css("--w", w + "px");
     $(".playerContainer").css("--h", h + "px");
 
-    game = new Spacewar(ctx, getPlayersConfiguration());
+    game = new Spacewar(canvasContext, getPlayersConfiguration());
 }
 
 
