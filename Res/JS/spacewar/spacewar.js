@@ -43,7 +43,10 @@ class Spacewar {
             
             e.update();
 
-            if (this.star.burningElement(e)) { // if star near
+            p = distBorderPoint(e.pos); // Distance ship to border
+
+            if (this.star.burningElement(e) || // if star near
+                p.dist(e.pos) < 2) { // or ship near border
                 this.ships.splice(i, 1); // destroy ship
                 this.players.splice(i, 1); // destroy player
                 i--;
