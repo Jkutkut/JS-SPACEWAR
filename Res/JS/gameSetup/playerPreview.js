@@ -8,7 +8,6 @@ window.addEventListener("load", () => {
     // When the user enters a name, verify it
     for (let i = 1; i <= 4; i++) {
         $(`#p${i}Name`).on('input', () => {
-            console.log(`hey ${i}`);
             verifyName(i);
         });
     }
@@ -76,17 +75,12 @@ function updateBullet(i) {
 function verifyName(index) {
     let nameField = document.getElementById(`p${index}Name`);
     let name = $(nameField).val(); // Get the name
-
-    console.log("name: " + name)
     
     // If the name is not empty, check if it is already taken
     for (let i = 1; i <= 4; i++) {
         if (i != index) {
             if (name == $(`#p${i}Name`).val()) {
-                // $(errorId).addClass('invalidInput');
-                console.log("Invalid")
                 nameField.setCustomValidity(`Invalid name, the ${i}º user has the same name`);
-                console.log(nameField.reportValidity());
                 return;
             }
         }
