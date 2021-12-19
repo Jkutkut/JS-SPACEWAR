@@ -16,7 +16,6 @@ class Spacewar {
             mass
         );
 
-        this.ships = [];
         this.players = [];
         this.bullets = [];
         
@@ -35,20 +34,19 @@ class Spacewar {
 
         this.star.update();
 
-        // Update players
-        for (i = 0; i < this.ships.length; i++) {
-            e = this.ships[i]; // get player
+        // Update players and ships
+        for (i = 0; i < this.players.length; i++) {
+            if (!this.players[i].isAlive) { // if ship is alive
+                continue;
+            }
 
+            e = this.players[i].ship; // get ship
             this.star.attract(e);
-            
             e.update();
-
             p = distBorderPoint(e.pos); // Distance ship to border
-
             if (this.star.burningElement(e) || // if star near
                 p.dist(e.pos) < 2) { // or ship near border
-                this.ships.splice(i, 1); // destroy ship
-                // this.players.splice(i, 1); // destroy player
+                this.players[i].isAlive = false;
                 i--;
                 continue;
             }
@@ -56,43 +54,43 @@ class Spacewar {
             // Check if bullet hit player
             for (j = 0; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S && this.bullets[j].ship != e) { // If bullet form enemy close
-                    this.ships.splice(i, 1); // destroy ship
-                    this.players.splice(i, 1); // destroy player
+                    this.players[i].isAlive = false;
+                    console.log(e);
                     i--;
 
                     this.bullets.splice(j--, 1); // destroy bullet
                     break;
                 }
             }
-        }
 
-        for (i = 0; i < this.players.length; i++) {
+            // Get player
             e = this.players[i];
             e.update();
-
             if (e.bulletCreation) { // If bullet created by player
                 this.bullets.push(e.bulletCreation);
                 e.bulletCreation = undefined;
             }
+
         }
 
+        // Update bullets
         for (i = 0; i < this.bullets.length; i++) {
-            e = this.bullets[i];
+            e = this.bullets[i]; // get bullet
 
             this.star.attract(e);
 
             e.update();
 
-            p = distBorderPoint(e.pos);
+            p = distBorderPoint(e.pos); // Distance bullet to border
 
             if (this.star.burningElement(e) || // if star near or
-                p.dist(e.pos) < S) { // on the border of the screen
+                p.dist(e.pos) < S) { // bullet on the border of the screen
                 
                 this.bullets.splice(i--, 1); // destroy bullet
                 continue;
             }
 
-
+            // Check if bullet bullet collision
             for(j = i + 1; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S) {
                     this.bullets.splice(j, 1); // destroy bullet
@@ -116,7 +114,7 @@ class Spacewar {
         }
         this._elements2clear.length = 0;
 
-        // Show star, ships
+        // Show star, ships and bullets
 
         let starShape = this.star.shape;
         for (i = 0; i < starShape.length; i++) {
@@ -129,21 +127,25 @@ class Spacewar {
             }
         }
 
-        for (i = 0; i < this.ships.length; i++) {
+        for (i = 0; i < this.players.length; i++) {
+            if (!this.players[i].isAlive) {
+                continue;
+            }
+            e = this.players[i].ship;
+
             // Draw ship's body
-            canvas_draw.subElement(this.ships[i].shape[0]);
-            this.addElement2Clear(this.ships[i].pos);
+            canvas_draw.subElement(e.shape[0]);
+            this.addElement2Clear(e.pos);
             
-            if (!this.ships[i].exhaustOn) {
+            if (!e.exhaustOn) {
                 continue;
             }
 
-            for (j = 1; j < this.ships[i].shape.length; j++) {
-                canvas_draw.subElement(this.ships[i].shape[j]);
+            for (j = 1; j < e.shape.length; j++) {
+                canvas_draw.subElement(e.shape[j]);
             }
         }
 
-        // Show bullets
         for (i = 0; i < this.bullets.length; i++) {
             for (j = 0; j < this.bullets[i].shape.length; j++) {
                 canvas_draw.subElement(this.bullets[i].shape[j]);
@@ -184,7 +186,7 @@ class Spacewar {
 
     // Player creation/deletion
     addPlayer(conf) {
-        let index = this.ships.length;
+        let index = this.players.length;
 
         let angleOri;
         switch(index) {
@@ -208,17 +210,23 @@ class Spacewar {
         let v = new Point(-1, 0);
         v.rotateBy(Math.PI * angleOri);
 
-        this.ships.push(
-            new SpacewarShip(
-                new Point((this.ctx.canvas.width >> 1) + orientation.x, (this.ctx.canvas.height >> 1) + orientation.y),
-                v
-            )
+        let ship = new SpacewarShip(
+            new Point(
+                (this.ctx.canvas.width >> 1) + orientation.x,
+                (this.ctx.canvas.height >> 1) + orientation.y
+            ),
+            v
         );
 
-        this.ships[index].bodyColor = conf.shipColor;
+        ship.bodyColor = conf.shipColor;
         
         this.players.push(
-            new SpacewarPlayer(conf.index - 1, this.ships[index], conf.bulletType, conf.bulletColor)
+            new SpacewarPlayer(
+                conf.index - 1,
+                ship,
+                conf.bulletType,
+                conf.bulletColor
+            )
         );
     }
 }

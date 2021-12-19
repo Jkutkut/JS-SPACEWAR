@@ -56,6 +56,8 @@ class SpacewarPlayer {
          * Time remaining until I can shoot again
          */
         this.coolDown = 0;
+
+        this.isAlive = true;
     }
 
     update() {
