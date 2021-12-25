@@ -43,14 +43,15 @@ body {
     padding: 10px;
 }
 
-.inputField label {
+.inputField > label {
     margin-left: 0.4rem;
     font-size: large;
 }
 
 .inputField input {
     height: 1rem;
-    margin-left: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 1rem;
     float: var(--align, right);
 }
 
@@ -65,7 +66,6 @@ body {
 .nameMenu {
     display: flex;
     align-items: center;
-    margin-right: 1.9rem;
 }
 
 .bulletMenu {
@@ -73,10 +73,8 @@ body {
     display: flex;
     flex-direction: row;
 }
-.bulletMenu div {
-    margin-left: 1rem;
-    display: flex;
-    flex-direction: column;
+.bulletMenu > div {
+    margin-left: 0.5rem;
 }
 
 .bulletMenu input[type="radio"] {
