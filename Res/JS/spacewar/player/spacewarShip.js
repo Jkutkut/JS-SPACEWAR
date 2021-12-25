@@ -49,8 +49,15 @@ class SpacewarShip extends CelestialObject {
      */
     static THRUSTER_FORCE = 0.005;
 
+    /**
+     * Maximum amount of bullets that can be fired at the same time.
+     */
+    static MAX_BULLETS = 3;
+
     constructor(pos, v) {
         super(pos, v);
+
+        this._bullets_on_screen = 0;
 
         this._exhaustOn = false;
     }
@@ -62,6 +69,10 @@ class SpacewarShip extends CelestialObject {
      */
     get exhaustOn() {
         return this._exhaustOn;
+    }
+
+    get canFire() {
+        return this._bullets_on_screen < SpacewarShip.MAX_BULLETS;
     }
 
     // SETTERS
@@ -85,6 +96,20 @@ class SpacewarShip extends CelestialObject {
      */
     thrusterOff() {
         this._exhaustOn = false;
+    }
+
+    /**
+     * This method is executed when a bullet has been fired.
+     */
+    bulletFired() {
+        this._bullets_on_screen++;
+    }
+
+    /**
+     * This method is executed when a bullet has been destroyed.
+     */
+    bulletDestroyed() {
+        this._bullets_on_screen--;
     }
 
     update() {

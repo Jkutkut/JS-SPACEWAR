@@ -82,10 +82,11 @@ class SpacewarPlayer {
             this.ship.thrusterOn();
         }
         if (this.state.shoot) { // Shoot key pressed
-            if (this.coolDown == 0) { // If not cooling down
+            if (this.coolDown == 0 && this.ship.canFire) { // If not cooling down and ship able to fire
                 this.bulletCreation = new this.bulletType(this.ship);
                 this.bulletCreation.bodyColor = this.bulletColor;
                 this.coolDown = SpacewarPlayer.COOL_DOWN;
+                this.ship.bulletFired(); // Tell ship that a bullet has been fired
             }
         }
     }

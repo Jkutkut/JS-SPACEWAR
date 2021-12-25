@@ -58,7 +58,8 @@ class Spacewar {
                     this.players[i].kill();
                     console.log(e);
                     i--;
-
+                    
+                    this.bullets[j].kill();
                     this.bullets.splice(j--, 1); // destroy bullet
                     break;
                 }
@@ -83,6 +84,7 @@ class Spacewar {
             e.update();
 
             if (!e.isAlive()) { // If bullet is not alive (life time is over)
+                e.kill();
                 this.bullets.splice(i--, 1); // destroy bullet
                 continue;
             }
@@ -92,6 +94,7 @@ class Spacewar {
             if (this.star.burningElement(e) || // if star near or
                 p.dist(e.pos) < S) { // bullet on the border of the screen
                 
+                e.kill();
                 this.bullets.splice(i--, 1); // destroy bullet
                 continue;
             }
@@ -99,6 +102,8 @@ class Spacewar {
             // Check if bullet bullet collision
             for(j = i + 1; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S) {
+                    e.kill();
+                    this.bullets[j].kill();
                     this.bullets.splice(j, 1); // destroy bullet
                     this.bullets.splice(i--, 1); // destroy bullet
                     break;
