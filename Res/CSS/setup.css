@@ -44,6 +44,7 @@ body {
 }
 
 .inputField > label {
+    text-align: center;
     margin-left: 0.4rem;
     font-size: large;
 }
@@ -87,6 +88,12 @@ body {
 
 .colorPicker {
     width: 5rem;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pCanvas {
