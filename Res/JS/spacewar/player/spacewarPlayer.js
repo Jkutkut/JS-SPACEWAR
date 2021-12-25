@@ -17,7 +17,12 @@ class SpacewarPlayer {
     /**
      * Cool down between shots.
      */
-    static COOL_DOWN = 100;
+     static COOL_DOWN = 100;
+
+     /**
+      * Cool down to spawn again.
+      */
+     static SPAWN_COOL_DOWN = 1000;
 
     /**
      * Amount to rotate (in radians) each time the rotation keys are pressed.
@@ -58,6 +63,8 @@ class SpacewarPlayer {
         this.coolDown = 0;
 
         this.isAlive = true;
+
+        this.deathCoolDown = 0;
     }
 
     update() {
@@ -123,6 +130,20 @@ class SpacewarPlayer {
             case this.controls.shoot:
                 this.state.shoot = false;
                 break;
+        }
+    }
+
+    kill() {
+        this.isAlive = false;
+        this.deathCoolDown = SpacewarPlayer.SPAWN_COOL_DOWN;
+    }
+
+    respawn() {
+        if (this.deathCoolDown > 0) {
+            this.deathCoolDown--;
+        }
+        else {
+            this.isAlive = true;
         }
     }
 }

@@ -37,6 +37,7 @@ class Spacewar {
         // Update players and ships
         for (i = 0; i < this.players.length; i++) {
             if (!this.players[i].isAlive) { // if ship is alive
+                this.players[i].respawn(); // Attempt to respawn
                 continue;
             }
 
@@ -46,7 +47,7 @@ class Spacewar {
             p = distBorderPoint(e.pos); // Distance ship to border
             if (this.star.burningElement(e) || // if star near
                 p.dist(e.pos) < 2) { // or ship near border
-                this.players[i].isAlive = false;
+                this.players[i].kill();
                 i--;
                 continue;
             }
@@ -54,7 +55,7 @@ class Spacewar {
             // Check if bullet hit player
             for (j = 0; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S && this.bullets[j].ship != e) { // If bullet form enemy close
-                    this.players[i].isAlive = false;
+                    this.players[i].kill();
                     console.log(e);
                     i--;
 
