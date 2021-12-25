@@ -60,6 +60,8 @@ class SpacewarShip extends CelestialObject {
         this._bullets_on_screen = 0;
 
         this._exhaustOn = false;
+
+        this._init_settings = {pos: pos.clone(), v: v.clone()};
     }
 
     // GETTERS
@@ -120,5 +122,13 @@ class SpacewarShip extends CelestialObject {
             f.rotate(this.angle);
             this.applyForce(f); // Apply the force in the direction oposite of the exhaust.
         }
+    }
+
+    /**
+     * Move ship to the location (and velocity) given at the creation of the instance.
+     */
+    go_to_init() {
+        this._pos = this._init_settings.pos.clone();
+        this._v = this._init_settings.v.clone();
     }
 }

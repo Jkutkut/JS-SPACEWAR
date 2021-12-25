@@ -19,7 +19,7 @@ class Spacewar {
         this.players = [];
         this.bullets = [];
         
-        this._elements2clear = [];
+        this._elements2clear = []; // Array of elements to clear
 
         this._configuration = configuration;
         for (let i = 0; i < configuration.length; i++) {

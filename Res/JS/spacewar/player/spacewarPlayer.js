@@ -137,6 +137,8 @@ class SpacewarPlayer {
     kill() {
         this.isAlive = false;
         this.deathCoolDown = SpacewarPlayer.SPAWN_COOL_DOWN;
+        this.ship.go_to_init(); // Move the ship to the initial position so it can be respawned
+        this.ship.update();
     }
 
     respawn() {
