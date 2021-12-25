@@ -82,6 +82,11 @@ class Spacewar {
 
             e.update();
 
+            if (!e.isAlive()) { // If bullet is not alive (life time is over)
+                this.bullets.splice(i--, 1); // destroy bullet
+                continue;
+            }
+
             p = distBorderPoint(e.pos); // Distance bullet to border
 
             if (this.star.burningElement(e) || // if star near or

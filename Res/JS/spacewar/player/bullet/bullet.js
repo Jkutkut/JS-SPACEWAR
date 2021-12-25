@@ -38,6 +38,7 @@ class FastBullet extends CelestialObject {
         }
     ];
 
+    static LIFE_TIME = 3000;
     static V = 1.2;
     static MASS = 10;
 
@@ -54,12 +55,23 @@ class FastBullet extends CelestialObject {
 
         // Fix velocity vector
         this._v.rotateBy(this.angle);
+
+        this.life_time = 0;
     }
 
 
     update() {
         super.update();
+        this.life_time++; // Update life time
         this._angle = this.v.angle; // Make the bullet aim the same way it's moving to.
+    }
+
+    isAlive() {
+        return this.life_time < FastBullet.LIFE_TIME;
+    }
+
+    kill() {
+        // this.ship.bulletDestroyed();
     }
 }
 
