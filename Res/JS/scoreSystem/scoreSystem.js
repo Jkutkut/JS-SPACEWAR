@@ -9,6 +9,10 @@ class ScoreSystem {
     constructor(configuration) {
         this.players = this.createPlayers(configuration);
         this.updatePlayers();
+
+        for (let i = this.players.length; i < 4; i++) {
+            $(`.player${i+1}`).hide();
+        }
     }
 
     createPlayers(players) {
