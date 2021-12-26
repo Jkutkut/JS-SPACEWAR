@@ -63,6 +63,7 @@ class Spacewar {
                     for (let k = 0; k < this.players.length; k++) {
                         if (this.players[k].ship == this.bullets[j].ship) {
                             this.scoreSystem.addKill(k, i);
+                            this.scoreSystem.addBulletHit(k);
                             break;
                         }
                     }
