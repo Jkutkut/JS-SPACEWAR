@@ -52,6 +52,10 @@ class ScoreSystem {
         $(ScoreSystem.playerIds.d(index)).html(this.players[index].deaths);
         $(ScoreSystem.playerIds.k(index)).html(this.players[index].kills);
 
+        // Calculate accuracy as a integer percentage
+        let accuracy = Math.round(this.players[index].hits / this.players[index].shots * 100);
+        $(ScoreSystem.playerIds.ac(index)).html((isNaN(accuracy)) ? "" : `${accuracy}%`);
+
         if (this.players[index].killStreak >= ScoreSystem.STREAK) {
             $(ScoreSystem.playerIds.flame(index)).attr('src', 'Res/Img/flame.png');
         }
