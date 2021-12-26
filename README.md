@@ -2,7 +2,7 @@
 
 Welcome to my own version of the game [SPACEWAR](https://en.wikipedia.org/wiki/Spacewar!).
 
-## [**Play Now!**]()
+## [**Play Now!**](https://jkutkut.github.io/JS-SPACEWAR/)
 
 ### Controls:
 |Player|Thruster|Rotate Left|Rotate Right|Shoot|
