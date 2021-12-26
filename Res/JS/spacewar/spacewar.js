@@ -51,7 +51,6 @@ class Spacewar {
                 p.dist(e.pos) < 2) { // or ship near border
                 this.players[i].kill();
                 this.scoreSystem.addKill(i, i);
-                i--;
                 continue;
             }
 
@@ -69,12 +68,14 @@ class Spacewar {
                     }
                     this.bullets[j].kill();
                     this.bullets.splice(j--, 1); // destroy bullet
-                    i--;
                     break;
                 }
             }
 
-            // Get player
+            // Get player if alive
+            if (!this.players[i].isAlive) {
+                break;
+            }
             e = this.players[i];
             e.update();
             if (e.bulletCreation) { // If bullet created by player
