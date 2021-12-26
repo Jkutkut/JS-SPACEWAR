@@ -1,5 +1,11 @@
 class ScoreSystem {
 
+    static STREAK = 3;
+
+    static KILL_POINTS = 10;
+
+    static KILL_STREAK_POINTS = 30;
+
     static playerIds = {
         usr:    (i) => { return `#usr${i+1}`;},
         d:      (i) => { return `#kda-d${i+1}`;},
@@ -17,10 +23,13 @@ class ScoreSystem {
 
     createPlayers(players) {
         for (let i = 0; i < players.length; i++) {
-            players[i].deaths = 0;
-            players[i].kills = 0;
             players[i].score = 0;
-            players[i].streak = 0;
+            players[i].kills = 0;
+            players[i].deaths = 0;
+            players[i].killStreak = 0;
+
+            players[i].shots = 0;
+            players[i].hits = 0;
         }
         return players;
     }
@@ -39,5 +48,34 @@ class ScoreSystem {
         $(ScoreSystem.playerIds.d(index)).html(this.players[index].deaths);
         $(ScoreSystem.playerIds.k(index)).html(this.players[index].kills);
 
+
+    }
+
+    // data entry methods
+    addKill(killer, killed) {
+        if (killer != killed) {
+            this.players[killer].kills++;
+            this.players[killer].killStreak++;
+        }
+        this.players[killed].deaths++;
+        this.players[killed].killStreak = 0;
+
+        if (this.players[killer].killStreak >= ScoreSystem.STREAK) {
+            this.players[killer].score += ScoreSystem.KILL_STREAK_POINTS;
+        }
+        else {
+            this.players[killer].score += ScoreSystem.KILL_POINTS;
+        }
+
+        this.updatePlayer(killer);
+        this.updatePlayer(killed);
+    }
+
+    addShot(shooter) {
+        this.players[shooter].shots++;
+    }
+
+    addBulletHit(shooter) {
+        this.players[shooter].hits++;
     }
 }

@@ -50,6 +50,7 @@ class Spacewar {
             if (this.star.burningElement(e) || // if star near
                 p.dist(e.pos) < 2) { // or ship near border
                 this.players[i].kill();
+                this.scoreSystem.addKill(i, i);
                 i--;
                 continue;
             }
@@ -58,11 +59,17 @@ class Spacewar {
             for (j = 0; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S && this.bullets[j].ship != e) { // If bullet form enemy close
                     this.players[i].kill();
-                    console.log(e);
-                    i--;
                     
+                    // Find the bullet owner
+                    for (let k = 0; k < this.players.length; k++) {
+                        if (this.players[k].ship == this.bullets[j].ship) {
+                            this.scoreSystem.addKill(k, i);
+                            break;
+                        }
+                    }
                     this.bullets[j].kill();
                     this.bullets.splice(j--, 1); // destroy bullet
+                    i--;
                     break;
                 }
             }
@@ -73,6 +80,7 @@ class Spacewar {
             if (e.bulletCreation) { // If bullet created by player
                 this.bullets.push(e.bulletCreation);
                 e.bulletCreation = undefined;
+                this.scoreSystem.addShot(i);
             }
 
         }
@@ -104,6 +112,8 @@ class Spacewar {
             // Check if bullet bullet collision
             for(j = i + 1; j < this.bullets.length; j++) {
                 if (e.pos.dist(this.bullets[j].pos) < S) {
+                    this.scoreSystem.addBulletHit(i);
+                    this.scoreSystem.addBulletHit(j);
                     e.kill();
                     this.bullets[j].kill();
                     this.bullets.splice(j, 1); // destroy bullet
