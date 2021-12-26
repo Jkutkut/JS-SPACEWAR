@@ -94,16 +94,16 @@ class ScoreSystem {
         if (killer != killed) {
             this.players[killer].kills++;
             this.players[killer].killStreak++;
+
+            if (this.players[killer].killStreak >= ScoreSystem.STREAK) {
+                this.players[killer].score += ScoreSystem.KILL_STREAK_POINTS;
+            }
+            else {
+                this.players[killer].score += ScoreSystem.KILL_POINTS;
+            }
         }
         this.players[killed].deaths++;
         this.players[killed].killStreak = 0;
-
-        if (this.players[killer].killStreak >= ScoreSystem.STREAK) {
-            this.players[killer].score += ScoreSystem.KILL_STREAK_POINTS;
-        }
-        else {
-            this.players[killer].score += ScoreSystem.KILL_POINTS;
-        }
 
         this.updatePlayer(killer);
         this.updatePlayer(killed);

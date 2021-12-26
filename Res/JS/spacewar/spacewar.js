@@ -56,11 +56,16 @@ class Spacewar {
 
             // Check if bullet hit player
             for (j = 0; j < this.bullets.length; j++) {
-                if (e.pos.dist(this.bullets[j].pos) < S && this.bullets[j].ship != e) { // If bullet form enemy close
+                if (e.pos.dist(this.bullets[j].pos) < S) { // If bullet close
+                    if (this.bullets[j].ship == e && this.bullets[j].lifeTime < FastBullet.LIFE_TIME * 0.3) {
+                        // If bullet was fired recently, don't kill player
+                        continue;
+                    }
+                    
                     this.players[i].kill();
                     
                     // Find the bullet owner
-                    for (let k = 0; k < this.players.length; k++) {
+                    for (let k = (this.bullets[j].ship == e) ? i : 0; k < this.players.length; k++) {
                         if (this.players[k].ship == this.bullets[j].ship) {
                             this.scoreSystem.addKill(k, i);
                             this.scoreSystem.addBulletHit(k);
