@@ -9,7 +9,9 @@ class ScoreSystem {
     static playerIds = {
         usr:    (i) => { return `#usr${i+1}`;},
         d:      (i) => { return `#kda-d${i+1}`;},
-        k:      (i) => { return `#kda-k${i+1}`;}
+        k:      (i) => { return `#kda-k${i+1}`;},
+        crown:      (i) => { return `#crown${i+1}`;},
+        flame:      (i) => { return `#flame${i+1}`;}
     }
 
     constructor(configuration) {
@@ -18,6 +20,7 @@ class ScoreSystem {
 
         for (let i = this.players.length; i < 4; i++) {
             $(`.player${i+1}`).hide();
+            $(ScoreSystem.playerIds.crown(i)).attr("src", "Res/Img/empty.png");
         }
     }
 
@@ -48,7 +51,12 @@ class ScoreSystem {
         $(ScoreSystem.playerIds.d(index)).html(this.players[index].deaths);
         $(ScoreSystem.playerIds.k(index)).html(this.players[index].kills);
 
-
+        if (this.players[index].killStreak >= ScoreSystem.STREAK) {
+            $(ScoreSystem.playerIds.flame(index)).attr('src', 'Res/Img/flame.png');
+        }
+        else {
+            $(ScoreSystem.playerIds.flame(index)).attr('src', 'Res/Img/empty.png');
+        }
     }
 
     // data entry methods
