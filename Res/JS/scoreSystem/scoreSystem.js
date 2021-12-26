@@ -86,9 +86,11 @@ class ScoreSystem {
 
     addShot(shooter) {
         this.players[shooter].shots++;
+        this.updatePlayer(shooter);
     }
 
     addBulletHit(shooter) {
         this.players[shooter].hits++;
+        this.updatePlayer(shooter);
     }
 }
