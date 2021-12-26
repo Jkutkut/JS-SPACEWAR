@@ -26,6 +26,8 @@ class Spacewar {
             this.addPlayer(configuration[i]);
         }
 
+        this.scoreSystem = new ScoreSystem(configuration);
+
         this.update();
     }
 
