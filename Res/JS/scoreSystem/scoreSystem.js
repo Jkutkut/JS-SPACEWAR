@@ -8,9 +8,10 @@ class ScoreSystem {
 
     static playerIds = {
         usr:    (i) => { return `#usr${i+1}`;},
+        score:      (i) => { return `#points${i+1}`;},
         d:      (i) => { return `#kda-d${i+1}`;},
         k:      (i) => { return `#kda-k${i+1}`;},
-        crown:      (i) => { return `#crown${i+1}`;},
+        ac:      (i) => { return `#kda-ac${i+1}`;},
         flame:      (i) => { return `#flame${i+1}`;}
     }
 
@@ -20,7 +21,6 @@ class ScoreSystem {
 
         for (let i = this.players.length; i < 4; i++) {
             $(`.player${i+1}`).hide();
-            $(ScoreSystem.playerIds.crown(i)).attr("src", "Res/Img/empty.png");
         }
     }
 
@@ -48,6 +48,7 @@ class ScoreSystem {
             return;
         }
         $(ScoreSystem.playerIds.usr(index)).html(this.players[index].name);
+        $(ScoreSystem.playerIds.score(index)).html(this.players[index].score);
         $(ScoreSystem.playerIds.d(index)).html(this.players[index].deaths);
         $(ScoreSystem.playerIds.k(index)).html(this.players[index].kills);
 
