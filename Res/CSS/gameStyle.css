@@ -11,8 +11,11 @@
 /* stats menu */
 .playerContainer {
     position: absolute;
-    width: var(--w, 140px);
-    height: var(--h, 90px);
+    width: var(--w, 200px);
+    height: var(--h, 80px);
+
+    min-width: 200px;
+    min-height: 80px;
 
     background: var(--bg,rgb(40, 49, 51));
     color: white;
@@ -43,13 +46,20 @@
 .name {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    overflow: hidden;
+}
+
+.name > div {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 0px;
 }
 
 .name div {
-    padding: 10px;
-    padding-bottom: 0px;
+    margin-left: 10px;
 }
+
 .name img {
     height: 30px;
     aspect-ratio: 1;
