@@ -1,11 +1,26 @@
+/**
+ * Class to handle the score system of the game SPACEWAR.
+ */
 class ScoreSystem {
 
+    /**
+     * Kills needed to start a killing streak.
+     */
     static STREAK = 3;
 
+    /**
+     * The points for killing a player.
+     */
     static KILL_POINTS = 10;
 
+    /**
+     * The points for killing a player on a killing streak.
+     */
     static KILL_STREAK_POINTS = 30;
 
+    /**
+     * Functions to get id of the element of the given player by their index.
+     */
     static playerIds = {
         usr:    (i) => { return `#usr${i+1}`;},
         score:      (i) => { return `#points${i+1}`;},
@@ -17,13 +32,20 @@ class ScoreSystem {
 
     constructor(configuration) {
         this.players = this.createPlayers(configuration);
-        this.updatePlayers();
+        
+        for (let i = 0; i < this.players.length; i++) {
+            this.updatePlayer(i);
+        }
 
         for (let i = this.players.length; i < 4; i++) {
             $(`.player${i+1}`).hide();
         }
     }
 
+    /**
+     * @param {Object[]} players - Array of objects with the information of the players.
+     * @returns The same object array with the information of the players and the stat elements.
+     */
     createPlayers(players) {
         for (let i = 0; i < players.length; i++) {
             players[i].score = 0;
@@ -37,12 +59,10 @@ class ScoreSystem {
         return players;
     }
 
-    updatePlayers() {
-        for (let i = 0; i < this.players.length; i++) {
-            this.updatePlayer(i);
-        }
-    }
-
+    /**
+     * Updates the player's information on the screen.
+     * @param {number} index - The index of the player to update.
+     */
     updatePlayer(index) {
         if (index > this.players.length) {
             return;
@@ -65,6 +85,11 @@ class ScoreSystem {
     }
 
     // data entry methods
+
+    /**
+     * @param {number} killer - The index of the player who killed the victim.
+     * @param {number} killed - The index of the player who was killed.
+     */
     addKill(killer, killed) {
         if (killer != killed) {
             this.players[killer].kills++;
@@ -84,11 +109,17 @@ class ScoreSystem {
         this.updatePlayer(killed);
     }
 
+    /**
+     * @param {number} shooter - The index of the player who shot the bullet.
+     */
     addShot(shooter) {
         this.players[shooter].shots++;
         this.updatePlayer(shooter);
     }
 
+    /**
+     * @param {number} shooter - The index of the player who shot the bullet.
+     */
     addBulletHit(shooter) {
         this.players[shooter].hits++;
         this.updatePlayer(shooter);
